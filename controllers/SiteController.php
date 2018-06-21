@@ -10,6 +10,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
+use app\models\Article;
+
 class SiteController extends Controller
 {
     /**
@@ -40,6 +42,9 @@ class SiteController extends Controller
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+	        'upload' => [
+    	        'class' => 'yii\widgets\ueditor\UEditorAction',
+	        ],
         ];
     }
 
@@ -50,7 +55,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+    	$article = new Article();
+    	$post = Yii::$app->request->post();
+
+		if($article->load($post)){
+			$article->updatetime = date("Y-m-d H:i:s", time());
+			$article->times = 1;
+		}
+        return $this->render('index',[
+        	'model' => $article,
+        ]);
     }
 
 }

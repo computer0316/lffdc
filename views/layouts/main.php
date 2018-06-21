@@ -22,7 +22,18 @@ use yii\widgets\Breadcrumbs;
 </head>
 <body>
 <?php $this->beginBody() ?>
-
+<style>
+	.logo{
+		width:1200px;
+		height:200px;
+		background:url(images/1.jpg) no-repeat;
+		background-size: 100% 100%;
+		font-size:48px;
+	}
+</style>
+<div class="logo">
+	测试网站标题
+</div>
 <div class="container">
 	<?= Breadcrumbs::widget([
 		'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
