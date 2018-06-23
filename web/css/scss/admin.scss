@@ -1,0 +1,57 @@
+	html,body,div,p,ul,ol,li,table,tr,td,label,input,select{
+		float:left;
+		margin:0;
+		padding:0;
+		width:100%;
+	}
+	ul{
+		list-style-type:none;
+	}
+	$backColor:#0f8dc7;
+	$lightGray:#ddd;
+
+	.header{
+		height:80px;
+		background:$backColor;
+	}
+	.logo{
+		margin:20px;
+		color:white;
+		font:24px 微软雅黑;
+	}
+
+	.slide{
+		width:10%;
+		height:1200px;
+		background:$lightGray;
+	}
+	.content{
+		margin:10px;
+		width:60%;
+	}
+
+	.breadcrumb li{
+		width:auto;
+		&:after{
+			margin:0 10px;
+			content:">";
+		}
+		&:last-child:after{
+			content:"";
+		}
+	}
+
+	.form-group{
+		margin:5px;
+	}
+	.control-label{
+		width:100px;
+	}
+	input{
+		width:300px;
+	}
+	.help-block{
+		color:red;
+		width:auto;
+		margin-left:10px;
+	}

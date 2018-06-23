@@ -1,6 +1,6 @@
 <?php
 
 return [
-	'siteName'		=> '廊坊市房地产业信息网',
+	'siteName'		=> '驻马店市农业局',
     'adminEmail'	=> 'admin@example.com',
 ];

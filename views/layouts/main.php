@@ -23,16 +23,45 @@ use yii\widgets\Breadcrumbs;
 <body>
 <?php $this->beginBody() ?>
 <style>
-	.logo{
+	html,body,div,p,ul,ol,li,table,tr,td{
+		margin:0;
+		padding:0;
+	}
+	.container{
 		width:1200px;
+		border:1px solid blue;
+		margin:0px auto;
+	}
+	.header{
+		width:1200px;
+		margin:0px auto;
+		border:1px solid blue;
 		height:200px;
 		background:url(images/1.jpg) no-repeat;
 		background-size: 100% 100%;
 		font-size:48px;
+		color:white;
+	}
+	.logo{
+		margin:50px;
+	}
+	.form-group{
+		margin:5px;
+		width:100%;
+	}
+	.form-control{
+
+	}
+	.help-block{
+		display:inline;
+	}
+	.control-label{
+		width:100px;
+		float:left;
 	}
 </style>
-<div class="logo">
-	测试网站标题
+<div class="header">
+	<p class="logo">测试网站标题</p>
 </div>
 <div class="container">
 	<?= Breadcrumbs::widget([

@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Article;
 
 class AdminController extends Controller
 {
@@ -63,6 +64,19 @@ class AdminController extends Controller
     {
     	$this->layout = 'admin';
         return $this->render('index');
+    }
+
+	public function actionAdd()
+    {
+    	$this->layout = 'admin';
+    	$article = new Article();
+    	$post = Yii::$app->request->post();
+    	if($article->load($post)){
+
+    	}
+        return $this->render('add',[
+        	'model' => $article,
+        ]);
     }
 
 }

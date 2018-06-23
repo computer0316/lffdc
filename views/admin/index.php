@@ -2,16 +2,7 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+$this->title = '统计信息';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<style>
-	.logo{
-		width:1200px;
-		height:200px;
-		background:url(images/1.jpg) no-repeat;
-		background-size: 100% 100%;
-	}
-</style>
-<div class="logo">
-	<img src="images/logo.gif" />
-</div>
+这里是后台管理首页

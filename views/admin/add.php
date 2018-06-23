@@ -4,7 +4,7 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = 'My Yii Application';
+$this->title = '添加文章';
 ?>
 <?php echo $model->text; ?>
 
@@ -20,9 +20,12 @@ $this->title = 'My Yii Application';
 
 		<?php echo $form->field($model,'creater'); ?>
 
+		<?php echo $form->field($model,'updatetime')->textInput(['value' => date("Y-m-d H:i:s", time())]); ?>
+
 		<?php echo $form->field($model,'text')->widget('yii\widgets\ueditor\UEditor',[
 			'clientOptions' => [
 		        //编辑区域大小
+		        'initialFrameWidth' => '100%',
 		        'initialFrameHeight' => '200',
 		        //设置语言
 		        'lang' =>'zh-cn', //中文为 zh-cn
