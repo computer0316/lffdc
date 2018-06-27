@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use app\widgets\ckeditor\CKEditor;
 
 $this->title = '添加文章';
 ?>
@@ -22,29 +23,10 @@ $this->title = '添加文章';
 
 		<?php echo $form->field($model,'updatetime')->textInput(['value' => date("Y-m-d H:i:s", time())]); ?>
 
-		<?php echo $form->field($model,'text')->widget('yii\widgets\ueditor\UEditor',[
-			'clientOptions' => [
-		        //编辑区域大小
-		        'initialFrameWidth' => '100%',
-		        'initialFrameHeight' => '200',
-		        //设置语言
-		        'lang' =>'zh-cn', //中文为 zh-cn
-		        //定制菜单
-		        'toolbars' => [
-		            [
-		                'fullscreen', 'source', 'undo', 'redo', '|',
-		                'fontsize',
-		                'bold', 'italic', 'underline', '|',
-		                'justifyleft', 'justifycenter', 'justifyright', '|',
-		                'fontborder', 'strikethrough', 'removeformat',
-		                'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|',
-		                'forecolor', 'backcolor', '|',
-		                'lineheight', '|',
-		                'indent', '|'
-		            ],
-		        ],
-			],
-		]); ?>
+		<?= $form->field($model, 'text')->widget(CKEditor::className(), [
+	        'options' => ['rows' => 6],
+	        'preset' => 'basic'
+	    ]) ?>
 
         <div class="form-group">
             <div class="col-lg-offset-1 col-lg-11">
