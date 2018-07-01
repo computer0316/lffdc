@@ -12,6 +12,14 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+	'modules' => [
+	    'redactor' => [
+	        'class' => 'yii\redactor\RedactorModule',
+	        'uploadDir' => 'upload',
+	        'uploadUrl' => 'upload',
+	        'imageAllowExtensions'=>['jpg','png','gif']
+	    ],
+	],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation

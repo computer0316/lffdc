@@ -20,6 +20,7 @@ use app\models\User;
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" href="css/admin.css" />
+    <script src="js/jquery-1.12.js"></script>
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
