@@ -31,12 +31,11 @@ $this->title = '添加文章';
 		        'fileUpload' => ['/redactor/upload/file'],
 		        'lang' => 'zh_cn',
 		        'plugins' => ['clips', 'fontcolor','imagemanager'],
-		        'minHeight' => 300,
-		        'maxHeight' => 300,
-		        'minWidth' => 500,
+		        'minHeight' => 400,
+		        'maxHeight' => 400,
 		        'maxWidth' => 1200,
 		    ]
-		],['style' => 'height:300px;']) ?>
+		]) ?>
 </div>
 
         <div class="form-group">

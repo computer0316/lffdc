@@ -3,13 +3,15 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
+
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
+use app\component\AccessControl;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Article;
+
 
 class AdminController extends Controller
 {
