@@ -30,11 +30,13 @@ use app\models\User;
 <div class="header">
 	<p class="logo"><?= Yii::$app->params['siteName'] ?></p>
 	<?php
-		$userid = Yii::$app->session->get('userid');
-		if(isset($userid) && $userid>0){
-			$user = User::findOne($userid);
-			echo $user->name;
-			echo '<a href="?r=user/logout">退出</a>';
+		if(Yii::$app->user->isGuest){
+			echo '<p style="float:right;"><a href="' . Url::toRoute('user/login') . '">登录</a></p>';
+		}
+		else{
+			$user = Yii::$app->user->getIdentity();
+			echo '<p style="float:right;">' . $user->name;
+			echo '<a href="?r=user/logout">退出</a></p>';
 		}
 	?>
 </div>

@@ -111,16 +111,12 @@ class UserController extends Controller
 
 	public function actionLogin(){
 		$this->layout = 'login';
+
 		$loginForm = new LoginForm(['scenario' => 'login']);
-		if($loginForm->load(Yii::$app->request->post())){
-			$user = User::login($loginForm);
-			if($user){
-				return $this->redirect(Url::toRoute('admin/index'));
-			}
-			else{
-				Yii::$app->session->setFlash('message', '用户名或密码不对');
-			}
+		if($loginForm->load(Yii::$app->request->post()) && $loginForm->login()){
+			return $this->goBack();
 		}
+
 		return $this->render('login', [
 				'loginForm' => $loginForm,
 		]);
@@ -145,7 +141,7 @@ class UserController extends Controller
 	}
 
 	public function actionLogout(){
-		User::logout();
-		$this->redirect(Url::toRoute("/site/index"));
+		Yii::$app->user->logout();
+        return $this->goHome();
 	}
 }

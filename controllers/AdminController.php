@@ -7,7 +7,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\component\AccessControl;
+use yii\filters\AccessControl;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Article;
