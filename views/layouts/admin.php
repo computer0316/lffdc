@@ -41,7 +41,20 @@ use app\models\User;
 	?>
 </div>
 <div class="slide">
-<a href="<?= Url::toRoute(['admin/add']) ?>">添加文章</a>
+	<?php
+		showMenu('文章管理', 'account.png');
+			showItem('添加文章', 'admin/add');
+			showItem('文章列表', 'admin/list');
+			showItem('附件管理', 'admin/enclosure');
+		showMenu('栏目管理', 'account.png');
+			showItem('添加栏目', 'admin/add');
+			showItem('所有栏目', 'admin/add');
+		showMenu('权限管理', 'account.png');
+			showItem('用户管理', 'admin/add');
+			showItem('角色管理', 'admin/add');
+		showMenu('网站管理', 'account.png');
+			showItem('访问记录', 'admin/add');
+	?>
 </div>
 <div class="content">
 	<?= Breadcrumbs::widget([
@@ -56,3 +69,17 @@ use app\models\User;
 </body>
 </html>
 <?php $this->endPage() ?>
+
+<?php
+	function showItem($name, $action = ''){
+		echo '<p class="menuItem">';
+			echo '<a href="' . Url::toRoute([$action]) . '">' . $name . '</a>';
+		echo '</p>';
+	}
+	function showMenu($name, $icon){
+		echo '<div class="menuDiv">';
+			echo '<img src="images/icon/' . $icon . '" />';
+			echo '<p>' . $name . '</p>';
+		echo '</div>';
+	}
+?>

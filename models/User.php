@@ -91,7 +91,18 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
      * @param string $username
      * @return static|null
      */
-    public static function findByUsername($mobile)
+    public static function findByUsername($name)
+    {
+        return static::find()->where(['name' => $name])->one();
+    }
+
+    /**
+     * Finds user by mobile
+     *
+     * @param string $mobile
+     * @return static|null
+     */
+    public static function findByMobile($mobile)
     {
         return static::find()->where(['mobile' => $mobile])->one();
     }

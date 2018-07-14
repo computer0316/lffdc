@@ -1,7 +1,10 @@
 @charset "UTF-8";
+/* font  */
+/* color */
 html, body, div, p, ul, ol, li, table, tr, td, label, input, select {
   margin: 0;
   padding: 0;
+  font: normal 14px;
 }
 
 ul {
@@ -26,6 +29,39 @@ ul {
   width: 10%;
   height: 1200px;
   background: #ddd;
+  border-top: 5px solid white;
+}
+
+.menuDiv {
+  float: left;
+  width: 100%;
+  background: #0f8dc7;
+}
+.menuDiv p {
+  float: left;
+  line-height: 48px;
+  color: white;
+}
+.menuDiv img {
+  float: left;
+  width: 20px;
+  margin: 14px 5px 0 10px;
+}
+
+.menuItem {
+  float: left;
+  width: 100%;
+  background: #36648b;
+  line-height: 36px;
+}
+.menuItem a {
+  color: white;
+  float: left;
+  margin-left: 50px;
+  text-decoration: none;
+}
+.menuItem:hover {
+  background: #0f8dc7;
 }
 
 .content {

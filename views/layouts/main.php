@@ -16,69 +16,37 @@ use yii\widgets\Breadcrumbs;
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="stylesheet" href="css/front.css" />
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
-<style>
-	html,body,div,p,ul,ol,li,table,tr,td{
-		margin:0;
-		padding:0;
-	}
-	.container{
-		width:1200px;
-		border:1px solid blue;
-		margin:0px auto;
-	}
-	.header{
-		width:1200px;
-		margin:0px auto;
-		border:1px solid blue;
-		height:200px;
-		background:url(images/1.jpg) no-repeat;
-		background-size: 100% 100%;
-		font-size:48px;
-		color:white;
-	}
-	.logo{
-		margin:50px;
-	}
-	.form-group{
-		margin:5px;
-		width:100%;
-	}
-	.form-control{
 
-	}
-	.help-block{
-		display:inline;
-	}
-	.control-label{
-		width:100px;
-		float:left;
-	}
-</style>
 <div class="header">
-	<p class="logo">测试网站标题</p>
+	<p class="logo"><?= Yii::$app->params['siteName'] ?></p>
+</div>
+<div class="nav">
+<ul>
+	<li>首页</li>
+	<a href="#"><li>政策法规</li></a>
+	<a href="#"><li>房产新闻</li></a>
+	<a href="#"><li>群众办事</li></a>
+	<a href="#"><li>公示公告</li></a>
+</ul>
 </div>
 <div class="container">
 	<?= Breadcrumbs::widget([
 		'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
 	]) ?>
-	<?= Alert::widget() ?>
 	<?= $content ?>
 </div>
-
 <footer class="footer">
-    <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-
         <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
 </footer>
-
+<?= Alert::widget() ?>
 <?php $this->endBody() ?>
 </body>
 </html>

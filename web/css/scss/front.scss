@@ -1,0 +1,42 @@
+@import "_main.scss";
+.header, .container, .footer{
+	width:1200px;
+	margin:0 auto;
+}
+.header{
+	height:200px;
+	background:url('../images/1.jpg');
+}
+.logo{
+	margin-left:50px;
+	line-height:120px;
+	font-size:48px;
+	color:blue;
+}
+
+.nav{
+	float:left;
+	width:100%;
+	height:40px;
+	background:firebrick;
+	ul{
+		width:1200px;
+		margin:0 auto;
+		li{
+			float:left;
+			padding:9px 20px;
+		}
+		li:hover{
+			background:darkred;
+		}
+		a:link,a:hover,a:visited{
+			color:white;
+		}
+		color:white;
+	}
+}
+
+.footer{
+	text-align:center;
+	font-size:$small;
+}

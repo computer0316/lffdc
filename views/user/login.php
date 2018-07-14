@@ -23,7 +23,7 @@
 
 	<?= $form->field($loginForm, 'mobile')->textInput(['autofocus' => true, 'class' => 'menu1']) ?>
 
-	<?= $form->field($loginForm, 'password1')->passwordInput() ?>
+	<?= $form->field($loginForm, 'password')->passwordInput() ?>
 
 
 <div class="form-group button-group">

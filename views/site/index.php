@@ -4,49 +4,8 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
-$this->title = 'My Yii Application';
+$this->title = Yii::$app->params['siteName'];
 ?>
-<?php echo $model->text; ?>
 
-    <?php $form = ActiveForm::begin(); ?>
+　　为深入学习贯彻习近平新时代中国特色社会主义思想和党的十九大精神，引导中央国家机关广大干部职工牢固树立创新、共享的发展理念，2018年3-5月，国管局中央国家机关后勤干部培训中心、人事司、机关党委联合举办了三期机关事务大讲堂“科技创新与共享经济”系列讲座，分别邀请了小米科技兼金山软件公司董事长雷军、滴滴出行CEO程维、京东集团董事局主席兼首席执行官刘强东等知名企业家进行授课。
 
-		<?php echo $form->field($model,'title_before'); ?>
-
-		<?php echo $form->field($model,'title'); ?>
-
-		<?php echo $form->field($model,'title_after'); ?>
-
-		<?php echo $form->field($model,'department'); ?>
-
-		<?php echo $form->field($model,'creater'); ?>
-
-		<?php echo $form->field($model,'text')->widget('yii\widgets\ueditor\UEditor',[
-			'clientOptions' => [
-		        //编辑区域大小
-		        'initialFrameHeight' => '200',
-		        //设置语言
-		        'lang' =>'zh-cn', //中文为 zh-cn
-		        //定制菜单
-		        'toolbars' => [
-		            [
-		                'fullscreen', 'source', 'undo', 'redo', '|',
-		                'fontsize',
-		                'bold', 'italic', 'underline', '|',
-		                'justifyleft', 'justifycenter', 'justifyright', '|',
-		                'fontborder', 'strikethrough', 'removeformat',
-		                'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|',
-		                'forecolor', 'backcolor', '|',
-		                'lineheight', '|',
-		                'indent', '|'
-		            ],
-		        ],
-			],
-		]); ?>
-
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('提交') ?>
-            </div>
-        </div>
-
-    <?php ActiveForm::end(); ?>

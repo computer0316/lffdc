@@ -1,0 +1,57 @@
+/* font  */
+/* color */
+html, body, div, p, ul, ol, li, table, tr, td, label, input, select {
+  margin: 0;
+  padding: 0;
+  font: normal 14px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.header, .container, .footer {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  height: 200px;
+  background: url("../images/1.jpg");
+}
+
+.logo {
+  margin-left: 50px;
+  line-height: 120px;
+  font-size: 48px;
+  color: blue;
+}
+
+.nav {
+  float: left;
+  width: 100%;
+  height: 40px;
+  background: firebrick;
+}
+.nav ul {
+  width: 1200px;
+  margin: 0 auto;
+  color: white;
+}
+.nav ul li {
+  float: left;
+  padding: 9px 20px;
+}
+.nav ul li:hover {
+  background: darkred;
+}
+.nav ul a:link, .nav ul a:hover, .nav ul a:visited {
+  color: white;
+}
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+}
+
+/*# sourceMappingURL=front.css.map */
