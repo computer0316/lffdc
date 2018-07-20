@@ -7,6 +7,8 @@ use yii\redactor\RedactorModule;
 
 
 $this->title = '添加文章';
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
     <?php $form = ActiveForm::begin(); ?>

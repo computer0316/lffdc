@@ -17,7 +17,7 @@ class LoginForm extends Model
     public $smsCode;
     public $verifyCode;
     public $password;
-    public $password1;
+    public $passwordCompare;
 
     private $_user = false;
 
@@ -27,8 +27,8 @@ class LoginForm extends Model
     public function rules()
     {
         return [
+        	[['mobile'], 'string', 'length' => [11,11]],
             [['mobile', 'verifyCode'], 'required', 'on' => 'register1'],
-            [['mobile'], 'string', 'length' => [11,11]],
             [['mobile', 'password', 'passwordCompare', 'smsCode'], 'required', 'on' => 'register2'],
             [['smsCode', 'password', 'passwordCompare'], 'string'],
             ['passwordCompare', 'compare', 'compareAttribute' => 'password'],

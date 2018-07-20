@@ -30,8 +30,8 @@
 
 
 		<?= $form->field($loginForm, 'smsCode')->textInput(['placeholder' => Yii::$app->session->get('smscode')]) ?>
-		<?= $form->field($loginForm, 'password1')->passwordInput() ?>
 		<?= $form->field($loginForm, 'password')->passwordInput() ?>
+		<?= $form->field($loginForm, 'passwordCompare')->passwordInput() ?>
 
 
 

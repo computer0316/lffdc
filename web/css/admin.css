@@ -11,6 +11,10 @@ ul {
   list-style-type: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 .header {
   float: left;
   width: 100%;
@@ -19,9 +23,20 @@ ul {
 }
 
 .logo {
+  float: left;
   margin: 20px;
   color: white;
   font: 24px 微软雅黑;
+}
+
+.login {
+  float: right;
+  margin-top: 50px;
+  margin-right: 10px;
+  color: white;
+}
+.login a {
+  color: white;
 }
 
 .slide {
@@ -30,6 +45,17 @@ ul {
   height: 1200px;
   background: #ddd;
   border-top: 5px solid white;
+}
+
+.slideRight {
+  float: left;
+  margin-top: 5px;
+  width: 90%;
+}
+
+.content {
+  float: left;
+  margin: 10px;
 }
 
 .menuDiv {
@@ -64,14 +90,20 @@ ul {
   background: #0f8dc7;
 }
 
-.content {
+.breadcrumb {
   float: left;
-  margin: 10px;
-  width: 60%;
+  width: 100%;
+  padding-left: 10px;
+  line-height: 30px;
+  border-bottom: 1px solid #ddd;
 }
 
 .breadcrumb li {
-  width: auto;
+  float: left;
+  color: #dc143c;
+}
+.breadcrumb li a {
+  color: #dc143c;
 }
 .breadcrumb li:after {
   margin: 0 10px;
@@ -96,7 +128,7 @@ ul {
 
 input {
   padding: 3px;
-  border: 1px solid #ddd;
+  border: 1px solid skyblue;
 }
 
 .field-article-title {
@@ -104,7 +136,7 @@ input {
 }
 .field-article-title input {
   font-size: 16px;
-  border: 1px solid skyblue;
+  border: 1px solid deepskyblue;
 }
 
 .field-article-title_before input, .field-article-title input, .field-article-title_after input {
@@ -129,6 +161,7 @@ input {
 
 .text-area {
   float: left;
+  clear: both;
   margin: 20px 10px 10px 110px;
 }
 

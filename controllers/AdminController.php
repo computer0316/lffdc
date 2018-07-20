@@ -81,37 +81,36 @@ class AdminController extends Controller
         ]);
     }
 
-	public function actionWangeditor() {
-		$files = $_FILES;
-		$imags = [];
-		$errors = [];
-		foreach($files as $file) {
-			// 移动到框架应用根目录/public/uploads/ 目录下
-			$info = $file->move(ROOT_PATH.'public'.DS.'uploads');
-			if ($info) {
-				// 成功上传后 获取上传信息
-				// 输出 jpg
-				//echo $info->getExtension();
-				// 输出 42a79759f284b767dfcb2a0197904287.jpg
-				//echo $info->getFilename();
-				$path = 'public/uploads/'.$info->getSaveName();
-				array_push($imags, $path);
-			} else {
-				// 上传失败获取错误信息
-				//echo $file->getError();
-				array_push($errors, $file->getError());
-			}
-		}
-		$imgs = ['1.jpg'];
-		if (!$errors) {
-			$msg['errno'] = 0;
-			$msg['data'] = $imags;
-			return json_encode($msg);
-		} else {
-			$msg['errno'] = 1;
-			$msg['data'] = $imags;
-			$msg['msg'] = "上传出错";
-			return json_encode($msg);
-		}
-	}
+    public function actionList(){
+    	$this->layout = 'admin';
+    	return $this->render('list');
+    }
+
+    public function actionEnclosure(){
+    	$this->layout = 'admin';
+    	return $this->render('enclosure');
+    }
+
+    public function actionCategory(){
+    	$this->layout = 'admin';
+    	return $this->render('category');
+    }
+
+    public function actionAddcategory(){
+    	$this->layout = 'admin';
+    	return $this->render('addcategory');
+    }
+
+    public function actionUser(){
+    	$this->layout = 'admin';
+    	return $this->render('user');
+    }
+    public function actionRole(){
+    	$this->layout = 'admin';
+    	return $this->render('role');
+    }
+    public function actionSite(){
+    	$this->layout = 'admin';
+    	return $this->render('site');
+    }
 }

@@ -30,14 +30,16 @@ use app\models\User;
 <div class="header">
 	<p class="logo"><?= Yii::$app->params['siteName'] ?></p>
 	<?php
+		echo '<p class="login">';
 		if(Yii::$app->user->isGuest){
-			echo '<p style="float:right;"><a href="' . Url::toRoute('user/login') . '">登录</a></p>';
+			echo '<a href="' . Url::toRoute('user/login') . '">登录</a>';
 		}
 		else{
 			$user = Yii::$app->user->getIdentity();
-			echo '<p style="float:right;">' . $user->name;
-			echo '<a href="?r=user/logout">退出</a></p>';
+			echo $user->name;
+			echo '&nbsp;<a href="?r=user/logout">退出</a>';
 		}
+		echo '</p>';
 	?>
 </div>
 <div class="slide">
@@ -47,22 +49,23 @@ use app\models\User;
 			showItem('文章列表', 'admin/list');
 			showItem('附件管理', 'admin/enclosure');
 		showMenu('栏目管理', 'account.png');
-			showItem('添加栏目', 'admin/add');
-			showItem('所有栏目', 'admin/add');
+			showItem('添加栏目', 'admin/addcategory');
+			showItem('所有栏目', 'admin/category');
 		showMenu('权限管理', 'account.png');
-			showItem('用户管理', 'admin/add');
-			showItem('角色管理', 'admin/add');
+			showItem('用户管理', 'admin/user');
+			showItem('角色管理', 'admin/role');
 		showMenu('网站管理', 'account.png');
-			showItem('访问记录', 'admin/add');
+			showItem('访问记录', 'admin/site');
 	?>
 </div>
-<div class="content">
+<div class="slideRight">
 	<?= Breadcrumbs::widget([
 		'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
 	]) ?>
 	<?= Alert::widget() ?>
-
-	<?= $content ?>
+	<div class="content">
+		<?= $content ?>
+	</div>
 </div>
 
 <?php $this->endBody() ?>
