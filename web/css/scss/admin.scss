@@ -36,6 +36,7 @@
 	}
 
 	.content{
+		width:100%;
 		float:left;
 		margin:10px;
 	}
@@ -140,3 +141,35 @@
 		margin:20px 10px 10px 110px;
 	}
 
+	.ul-list{
+		width:90%;
+		margin:30px;
+		border:1px solid #ddd;
+		li{
+		line-height:30px;
+		padding:5px;
+			a{
+				float:right;
+			}
+			&:nth-of-type(odd){
+				background:#ddd;
+			}
+		}
+	}
+
+	.table-list{
+		width:90%;
+		border-collapse:collapse;
+		tr,td{
+			border:1px solid #ddd;
+		}
+		tr:nth-child(odd){
+			background:#d4e0ec;
+		}
+		td{
+			padding:5px;
+		}
+		.table-title td{
+			background:#a1c1d8;
+		}
+	}

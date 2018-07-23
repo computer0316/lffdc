@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use Yii;
-
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -101,14 +101,7 @@ class AdminController extends Controller
     	return $this->render('addcategory');
     }
 
-    public function actionUser(){
-    	$this->layout = 'admin';
-    	return $this->render('user');
-    }
-    public function actionRole(){
-    	$this->layout = 'admin';
-    	return $this->render('role');
-    }
+
     public function actionSite(){
     	$this->layout = 'admin';
     	return $this->render('site');
