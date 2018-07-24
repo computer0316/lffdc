@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				$form = ActiveForm::begin();
 
 ?>
-				<?= $form->field($author, 'name')?>
+				<?= $form->field($auth, 'role')?>
 
 				<div class="form-group button-group">
 					<div class="control-label">&nbsp;</div>

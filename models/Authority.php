@@ -5,12 +5,22 @@ namespace app\models;
 use Yii;
 
 
-class Author extends \yii\base\Model
+class Authority extends \yii\base\Model
 {
+	public $role;
 	public $name;
 	public $parent;
 	public $child;
 
+	/**
+     * {@inheritdoc}
+     */
+    public function rules()
+    {
+        return [
+            [['role'], 'string', 'max' => 16],
+        ];
+    }
 
 	// 创建角色
 	public static function createRole($name){
@@ -41,13 +51,5 @@ class Author extends \yii\base\Model
 		$auth = Yii::$app->authManager;
 		return $auth->getRoles();
 	}
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['name', 'parent', 'child'], 'string', 'max' => 16],
-        ];
-    }
+
 }

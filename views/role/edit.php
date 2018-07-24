@@ -10,8 +10,7 @@
 
 $this->title = '用户角色编辑';
 $this->params['breadcrumbs'][] = $this->title;
-	echo '编辑：' . $user->name . ' 角色<br />';
-
+?>
 		<div class="form">
 <?php
 	$auth = Yii::$app->authManager;
@@ -31,14 +30,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 		</div>
 
-		<ul class="ul-list">
-			<?php
-			if(isset($roles) && $roles != null){
-				foreach($roles as $role){
-					echo '<li>' . $role->name . '<a href="' . Url::toRoute(['admin/deleterole', 'name' => $role->name]) . '">删除</a></li>';
-				}
-			}
-			?>
-		</ul>
+<?php
+	$auth = Yii::$app->authManager;
+	$role = $auth->getRolesByUser($user->id);
+	if(!empty($role)){
+		echo $user->name . '所属角色：' . $role->name;
+	}
+	else{
+		echo '<p class="tip-red">' . $user->name . '还没有分配任何角色';
+	}
 
-
+?>

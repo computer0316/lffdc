@@ -4,7 +4,7 @@ namespace app\controllers;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\web\controller;
-use app\models\Author;
+use app\models\Authority;
 use app\models\User;
 
 class RoleController extends Controller
@@ -23,14 +23,14 @@ class RoleController extends Controller
      */
     public function actionAdd(){
     	$this->layout = 'admin';
-    	$author = new Author();
+    	$auth = new Authority();
     	$post = Yii::$app->request->post();
-    	if($author->load($post)){
-			$author->createRole($author->name);
+    	if($auth->load($post)){
+			$auth->createRole($auth->role);
     	}
-    	$roles = $author->getRoles();
+    	$roles = $auth->getRoles();
     	return $this->render('add',[
-    		'author' => $author,
+    		'auth' => $auth,
     		'roles' => $roles,
     	]);
     }
