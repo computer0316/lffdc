@@ -11,7 +11,8 @@ use yii\filters\AccessControl;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Article;
-
+use app\models\Category;
+use app\models\Text;
 
 class AdminController extends Controller
 {
@@ -23,10 +24,10 @@ class AdminController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                //'only' => ['logout'], 	// 不写 only 则对所有 Action 生效
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        // 'actions' => ['logout'],	// 不写 actions 则对所有 Action 生效
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -49,10 +50,6 @@ class AdminController extends Controller
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
     }
@@ -91,17 +88,40 @@ class AdminController extends Controller
     	return $this->render('enclosure');
     }
 
+	/*
+	 * 文章分类列表
+	 *
+	 */
     public function actionCategory(){
     	$this->layout = 'admin';
-    	return $this->render('category');
+    	$categories = Category::getAll();
+    	return $this->render('category', [
+    		'categories' => $categories,
+    	]);
     }
 
-    public function actionAddcategory(){
+	/*
+	 * 添加文章分类
+	 *
+	 */
+    public function actionAddcategory($id){
     	$this->layout = 'admin';
-    	return $this->render('addcategory');
+    	$category = Category::findOne($id);
+    	$text = new Text();
+    	$post = Yii::$app->request->post();
+    	if($text->load($post)){
+    		$cate = Category::add($text->name, $category->id);
+    		var_dump($cate->errors);
+    	}
+    	return $this->render('addcategory', [
+    		'category'	=> $category,
+    		'text'		=> $text,
+    	]);
     }
 
-
+	public function actionTest(){
+		echo strpos('123', '/');
+	}
     public function actionSite(){
     	$this->layout = 'admin';
     	return $this->render('site');

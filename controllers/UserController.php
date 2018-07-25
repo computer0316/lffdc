@@ -82,6 +82,7 @@ class UserController extends Controller
 		$captcha = new Captcha();  //实例化一个对象
 		$captcha->doimg();
 		Yii::$app->session->set('captcha', $captcha->getCode());//验证码保存到SESSION中
+		exit; // Added by Roc at 2018/7/22, without this, yii2 will send header twice, it whill throw a exception
 	}
 
 	public function actionGetSms(){

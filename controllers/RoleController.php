@@ -42,13 +42,24 @@ class RoleController extends Controller
 
 	public function actionEdit($userid){
 		$this->layout = 'admin';
-		$auth = Yii::$app->authManager;
+		$auth = new Authority();
 		$roles = $auth->getRoles();
 
 		$user = User::findOne($userid);
+		$post = Yii::$app->request->post();
+		if($auth->load($post)){
+			if(!$auth->checkAccess($userid,$auth->role)){
+				$auth->assign($auth->role, $userid);
+				Yii::$app->session->setFlash('message', '成功将用户 ' . $user->name . ' 赋予角色：' . $auth->role);
+			}
+			else{
+				Yii::$app->session->setFlash('message', '用户 ' . $user->name . ' 已经属于角色：' . $auth->role);
+			}
+		}
 		return $this->render('edit', [
-			'user' => $user,
-			'roles' => $roles,
+			'auth'	=> $auth,
+			'user'	=> $user,
+			'roles'	=> $roles,
 		]);
 	}
 }

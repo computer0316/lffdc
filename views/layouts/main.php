@@ -50,4 +50,10 @@ use yii\widgets\Breadcrumbs;
 <?php $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage() ?>
+
+<?php
+	$this->endPage();
+	if(Yii::$app->session->hasFlash('message')){
+		echo "<script>alert('" . Yii::$app->session->getFlash('message') . "')</script>";
+	}
+?>

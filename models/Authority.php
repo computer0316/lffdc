@@ -21,6 +21,11 @@ class Authority extends \yii\base\Model
             [['role'], 'string', 'max' => 16],
         ];
     }
+    public function attributeLabels(){
+    	return [
+    		'role' => '角色',
+    	];
+    }
 
 	// 创建角色
 	public static function createRole($name){
@@ -39,14 +44,18 @@ class Authority extends \yii\base\Model
 	}
 
 	// 将权限付给角色
-	public static function addChild($parent, $child)
+	public static function assign($roleName, $userid)
     {
+    	echo $roleName . '<br />';
+    	echo $userid . '<br />';
         $auth = Yii::$app->authManager;
-        $parent = $auth->createRole($items['role']);                //创建角色对象
-        $child = $auth->createPermission($items['permission']);     //创建权限对象
-        $auth->addChild($parent, $child);                           //添加对应关系
+        $role = $auth->getRole($roleName);                //创建角色对象
+        $auth->assign($role, $userid);                           //添加对应关系
     }
-
+	public static function checkAccess($userid, $roleName){
+		$auth = Yii::$app->authManager;
+		return $auth->checkAccess($userid, $roleName);
+	}
 	public static function getRoles(){
 		$auth = Yii::$app->authManager;
 		return $auth->getRoles();

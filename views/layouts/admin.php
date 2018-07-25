@@ -31,14 +31,9 @@ use app\models\User;
 	<p class="logo"><?= Yii::$app->params['siteName'] ?></p>
 	<?php
 		echo '<p class="login">';
-		if(Yii::$app->user->isGuest){
-			echo '<a href="' . Url::toRoute('user/login') . '">登录</a>';
-		}
-		else{
 			$user = Yii::$app->user->getIdentity();
 			echo $user->name;
 			echo '&nbsp;<a href="?r=user/logout">退出</a>';
-		}
 		echo '</p>';
 	?>
 </div>
@@ -49,7 +44,6 @@ use app\models\User;
 			showItem('文章列表', 'admin/list');
 			showItem('附件管理', 'admin/enclosure');
 		showMenu('栏目管理', 'account.png');
-			showItem('添加栏目', 'admin/addcategory');
 			showItem('所有栏目', 'admin/category');
 		showMenu('权限管理', 'account.png');
 			showItem('用户管理', 'role/user');
@@ -71,7 +65,6 @@ use app\models\User;
 <?php $this->endBody() ?>
 </body>
 </html>
-<?php $this->endPage() ?>
 
 <?php
 	function showItem($name, $action = ''){
@@ -84,5 +77,10 @@ use app\models\User;
 			echo '<img src="images/icon/' . $icon . '" />';
 			echo '<p>' . $name . '</p>';
 		echo '</div>';
+	}
+
+	$this->endPage();
+	if(Yii::$app->session->hasFlash('message')){
+		echo "<script>alert('" . Yii::$app->session->getFlash('message') . "')</script>";
 	}
 ?>

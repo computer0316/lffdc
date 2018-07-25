@@ -67,4 +67,12 @@ class SiteController extends Controller
         ]);
     }
 
+	/*
+	 * 为了匹配 yii2 的默认登录设置
+	 * yii2 默认登录方法为： site/login，我的登录方法为：user/login
+	 */
+    public function actionLogin(){
+    	return $this->redirect(['user/login']);
+    }
+
 }

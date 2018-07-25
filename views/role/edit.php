@@ -13,12 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 		<div class="form">
 <?php
-	$auth = Yii::$app->authManager;
 
 	$form = ActiveForm::begin();
 
 ?>
-	<?= $form->field($user, 'name')->dropDownList(ArrayHelper::map($roles,'name','name')) ?>
+	<?= $form->field($auth, 'role')->dropDownList(ArrayHelper::map($roles,'name','name')) ?>
 
 	<div class="form-group button-group">
 		<div class="control-label">&nbsp;</div>
@@ -32,12 +31,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
 	$auth = Yii::$app->authManager;
-	$role = $auth->getRolesByUser($user->id);
-	if(!empty($role)){
-		echo $user->name . '所属角色：' . $role->name;
+	$roles = $auth->getRolesByUser($user->id);
+	echo '<p class="tip-red">';
+	if(!empty($roles)){
+		echo $user->name;
+		echo '所属角色：<br />';
+		foreach($roles as $role){
+			echo $role->name . '<br />';
+		}
 	}
 	else{
-		echo '<p class="tip-red">' . $user->name . '还没有分配任何角色';
+		echo $user->name . '还没有分配任何角色';
 	}
-
+	echo '</p>';
 ?>
