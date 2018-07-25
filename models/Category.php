@@ -29,6 +29,11 @@ class Category extends \yii\db\ActiveRecord
 	 * $fatherid 父分类ID
 	 */
 	public static function add($nameOrUrl, $fatherid){
+		$cate = Category::find()->where("name ='" . $nameOrUrl . "' or url='" . $nameOrUrl . "'")->one();
+		if($cate){
+			Yii::$app->session->setFlash("message", "该分类已经存在");
+			return;
+		}
 		$cate = new Category();
 		$cate->fatherid = $fatherid;
 		if(strpos($nameOrUrl, '/') === false){

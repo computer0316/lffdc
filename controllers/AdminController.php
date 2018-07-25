@@ -111,7 +111,7 @@ class AdminController extends Controller
     	$post = Yii::$app->request->post();
     	if($text->load($post)){
     		$cate = Category::add($text->name, $category->id);
-    		var_dump($cate->errors);
+    		return $this->redirect(Url::toRoute(['admin/category']));
     	}
     	return $this->render('addcategory', [
     		'category'	=> $category,
