@@ -36,7 +36,7 @@ class Category extends \yii\db\ActiveRecord
 		}
 		$cate = new Category();
 		$cate->fatherid = $fatherid;
-		if(strpos($nameOrUrl, '/') === false){
+		if(strpos($nameOrUrl, '.') === false){
 			$cate->name = $nameOrUrl;
 		}
 		else{

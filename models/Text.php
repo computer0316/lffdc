@@ -16,8 +16,7 @@ class Text extends \yii\base\Model
     public function rules()
     {
         return [
-            [['name'], 'string', 'max' => 16],
-            [['url'], 'string', 'max' => 256],
+            [['name', 'url'], 'string', 'max' => 256],
         ];
     }
     public function attributeLabels(){

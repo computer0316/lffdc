@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				echo '<td>0</td>';
 				echo '<td>' . $cate->id . '</td>';
 				echo '<td>' . $cate->fatherid . '</td>';
-				echo '<td>' . str_pad("", $level * 8, "~") . $cate->name . '</td>';
+				echo '<td>' . str_pad("", $level * 8, "~") . ($cate->name==null ? $cate->url : $cate->name) . '</td>';
 				echo '<td>';
 					echo '<a href="' . Url::toRoute(['admin/addcategory', 'id' => $cate->id]) . '">添加</a>';
 					echo ' 修改';
