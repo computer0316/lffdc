@@ -109,27 +109,7 @@
 		padding:3px;
 		border:1px solid $skyBlue;
 	}
-	.field-article-title{
-		font-size:16px;
-		input{
-			font-size:16px;
-			border:1px solid $deepSkyBlue;
-		}
-	}
-	.field-article-title_before, .field-article-title, .field-article-title_after{
-		input{
-			width:800px;
-		}
-	}
-	.field-article-creater,.field-article-department,.field-article-updatetime{
-		float:left;
-		clear:none;
-		width:auto;
-		margin-top:20px;
-		input{
-			width:auto;
-		}
-	}
+
 	.help-block{
 		color:red;
 		width:auto;

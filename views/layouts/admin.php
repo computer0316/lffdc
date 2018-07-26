@@ -46,7 +46,7 @@ use app\models\User;
 		showMenu('栏目管理', 'account.png');
 			showItem('所有栏目', 'admin/category');
 		showMenu('权限管理', 'account.png');
-			showItem('用户管理', 'role/user');
+			showItem('用户管理', 'user/list');
 			showItem('角色管理', 'role/add');
 		showMenu('网站管理', 'account.png');
 			showItem('访问记录', 'admin/site');

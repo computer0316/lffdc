@@ -33,6 +33,14 @@ class UserController extends Controller
         ];
     }
 
+    public function actionList(){
+    	$this->layout = 'admin';
+    	$users = User::find()->where('1=1')->all();
+    	return $this->render('list',[
+    		'users' => $users,
+    	]);
+    }
+
 	/*
 	 * 用户列表
 	 */

@@ -10,6 +10,24 @@ $this->title = '添加文章';
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+<style>
+	.field-article-title input{
+			font-size:16px;
+			width:800px;
+	}
+	.field-article-title_before input,.field-article-title_after input{
+		width:760px;
+	}
+	.field-article-creater,.field-article-department,.field-article-updatetime, .field-article-ontop{
+		float:left;
+		clear:none;
+		width:auto;
+		margin-top:20px;
+		input{
+			width:auto;
+		}
+	}
+</style>
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -21,9 +39,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<?php echo $form->field($model,'department')->textInput(['value' => '1']); ?>
 
-		<?php echo $form->field($model,'creater')->textInput(['value' => '1']); ?>
+		<?php echo $form->field($model,'creater')->textInput(['value' => $user->name, 'readonly' => 'readonly']); ?>
 
 		<?php echo $form->field($model,'updatetime')->textInput(['value' => date("Y-m-d H:i:s", time())]); ?>
+
+		<?php echo $form->field($model,'ontop')->textInput(['value' => 0]); ?>
+
 
 <div class="text-area">
 		<?= $form->field($model, 'text')->label(false)->widget(\yii\redactor\widgets\Redactor::className(), [

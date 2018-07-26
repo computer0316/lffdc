@@ -10,13 +10,6 @@ use app\models\User;
 class RoleController extends Controller
 {
 
-    public function actionUser(){
-    	$this->layout = 'admin';
-    	$users = User::find()->where('1=1')->all();
-    	return $this->render('user',[
-    		'users' => $users,
-    	]);
-    }
     /*
      * 角色管理
      *

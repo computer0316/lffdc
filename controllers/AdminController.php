@@ -65,16 +65,22 @@ class AdminController extends Controller
         return $this->render('index');
     }
 
+	/*
+	 * Ìí¼ÓÎÄÕÂ
+	 *
+	 */
 	public function actionAdd()
     {
     	$this->layout = 'admin';
     	$article = new Article();
     	$post = Yii::$app->request->post();
+    	$user = Yii::$app->user->identity;
     	if($article->load($post)){
 
     	}
         return $this->render('add',[
         	'model' => $article,
+        	'user'	=> $user,
         ]);
     }
 

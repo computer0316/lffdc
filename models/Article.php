@@ -17,11 +17,12 @@ use Yii;
  * @property int $creater 发布人
  * @property string $updatetime
  * @property int $times
+ * @property string $ontop 置顶到期
  */
 class Article extends \yii\db\ActiveRecord
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function tableName()
     {
@@ -29,26 +30,26 @@ class Article extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
             [['title', 'text', 'department', 'creater', 'updatetime', 'times'], 'required'],
             [['text'], 'string'],
-            [['department', 'creater', 'times'], 'integer'],
-            [['updatetime'], 'safe'],
+            [['department', 'creater', 'times', 'ontop'], 'integer'],
+            [['updatetime', 'ontop'], 'safe'],
             [['title_before', 'title', 'title_after'], 'string', 'max' => 128],
             [['number'], 'string', 'max' => 16],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
-        return [
+    	 return [
             'id' => 'ID',
             'title_before' => '前副标题',
             'title' => '标题',
@@ -59,6 +60,7 @@ class Article extends \yii\db\ActiveRecord
             'creater' => '作者',
             'updatetime' => '发布时间',
             'times' => '阅读次数',
+            'ontop' => '置顶天数',
         ];
     }
 }
