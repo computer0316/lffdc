@@ -26,14 +26,15 @@ echo '<table class="table-list">';
 			echo '<td>所属部门</td>';
 			echo '<td>' . $user->updatetime . '</td>';
 			echo '<td>';
-			$auth = Yii::$app->authManager;
-			$roles = $auth->getRolesByUser($user->id);
-			if($roles){
-				foreach($roles as $role){
-					echo $role->name . ' ';
+				$auth = Yii::$app->authManager;
+				$roles = $auth->getRolesByUser($user->id);
+				if($roles){
+					foreach($roles as $role){
+						echo $role->name . ' ';
+					}
 				}
-			}
-			echo '<a href="' . Url::toRoute(['user/edit', 'userid' => $user->id]) . '">编辑</a></td>';
+			echo '</td>';
+			echo '<td><a href="' . Url::toRoute(['user/edit', 'userid' => $user->id]) . '">编辑</a></td>';
 		echo '</tr>';
 	}
 echo '</table>';

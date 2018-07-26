@@ -148,11 +148,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'mobile' => 'Mobile',
-            'password' => 'Password',
-            'firsttime' => 'Firsttime',
-            'updatetime' => 'Updatetime',
+            'name' => '姓名',
+            'mobile' => '手机号',
+            'password' => '密码',
+            'firsttime' => '首次登录',
+            'updatetime' => '最后登录',
             'ip' => 'Ip',
             'admin' => 'Admin',
         ];

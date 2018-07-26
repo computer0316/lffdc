@@ -41,6 +41,14 @@ class UserController extends Controller
     	]);
     }
 
+	public function actionEdit($userid){
+		$this->layout = 'admin';
+		$user = User::findOne($userid);
+		return $this->render('edit', [
+			'user' => $user,
+		]);
+	}
+
 	/*
 	 * 用户列表
 	 */
