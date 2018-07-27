@@ -6,10 +6,10 @@
 	use yii\widgets\LinkPager;
 	use yii\captcha\Captcha;
 
+	use app\models\Authority;
 	use app\models\Department;
 	use app\models\DepartmentUser;
 	use app\models\Text;
-	use app\models\Role;
 	// 客户信息窗体
 
 
@@ -24,9 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 			<?= $form->field($user, 'name')->textInput(['autofocus' => true]) ?>
 
-			<?= $form->field(new DepartmentUser(), 'departmentid')->label('所属部门')->dropDownList(ArrayHelper::map(Department::find()->where('id>0')->all(),'id', 'name')) ?>
+			<?= $form->field($du, 'departmentid')->label("&nbsp;")->dropDownList(['0' => '请选择部门'] + ArrayHelper::map(Department::find()->where('id>0')->all(),'id', 'name')) ?>
 
-			<?= $form->field(new Text(), 'name')->dropDownList(ArrayHelper::map(Role::find()->where('id>0')->all(),'id', 'name')) ?>
+			<?= $form->field($text, 'name')->label("&nbsp;")->dropDownList(['0' => '请选择角色'] + ArrayHelper::map(Authority::getRoles(), 'name', 'name')) ?>
 
 			<?= $form->field($user, 'id')->hiddenInput()->label(false) ?>
 

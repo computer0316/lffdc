@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-07-26 15:08:05
+-- Generation Time: 2018-07-27 10:55:18
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -33,12 +33,20 @@ CREATE TABLE IF NOT EXISTS `article` (
   `title_after` varchar(128) DEFAULT NULL,
   `number` varchar(16) DEFAULT NULL COMMENT '文号',
   `text` mediumtext NOT NULL,
-  `department` int(11) NOT NULL COMMENT '发布部门',
   `creater` int(11) NOT NULL COMMENT '发布人',
   `updatetime` datetime NOT NULL,
-  `times` int(11) NOT NULL,
+  `times` int(11) DEFAULT NULL,
+  `ontop` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- 转存表中的数据 `article`
+--
+
+INSERT INTO `article` (`id`, `title_before`, `title`, `title_after`, `number`, `text`, `creater`, `updatetime`, `times`, `ontop`) VALUES
+(1, '', '这里是标题', '', NULL, '<p>&lt;a href="#"&gt;test&lt;/a&gt;</p>', 7, '2018-07-27 10:46:59', NULL, 0),
+(2, '', '这里是标题', '', NULL, '<p>&lt;a href="#"&gt;test&lt;/a&gt;</p>', 7, '2018-07-27 10:46:59', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -59,9 +67,8 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('admin', '1', 1532413665),
-('editor', '1', 1532413945),
-('guest', '1', 1532414512),
+('admin', '1', 1532655598),
+('admin', '7', 1532658060),
 ('user', '6', 1532414741);
 
 -- --------------------------------------------------------
@@ -160,6 +167,18 @@ INSERT INTO `category` (`id`, `name`, `fatherid`, `url`, `outsite`) VALUES
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `category_article`
+--
+
+CREATE TABLE IF NOT EXISTS `category_article` (
+  `categoryid` int(11) NOT NULL,
+  `articleid` int(11) NOT NULL,
+  PRIMARY KEY (`categoryid`,`articleid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `department`
 --
 
@@ -191,8 +210,17 @@ INSERT INTO `department` (`id`, `name`, `managerid`) VALUES
 
 CREATE TABLE IF NOT EXISTS `department_user` (
   `departmentid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL
+  `userid` int(11) NOT NULL,
+  PRIMARY KEY (`departmentid`,`userid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `department_user`
+--
+
+INSERT INTO `department_user` (`departmentid`, `userid`) VALUES
+(1, 1),
+(2, 7);
 
 -- --------------------------------------------------------
 
@@ -218,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `name`, `mobile`, `password`, `firsttime`, `updatetime`, `ip`, `admin`) VALUES
 (1, 'Roc', '13931657890', 'd4cd5e9c8f07658b81a06d17b6d321ea', '0000-00-00 00:00:00', '2018-07-02 08:56:05', '127.0.0.1', 1),
-(7, '15530639625', '15530639625', '2226ce94cf0f3231556d320a9260f037', '2018-07-25 14:14:43', '2018-07-26 14:29:19', '127.0.0.1', 0);
+(7, '15530639625', '15530639625', '2226ce94cf0f3231556d320a9260f037', '2018-07-25 14:14:43', '2018-07-27 08:30:04', '127.0.0.1', 0);
 
 --
 -- 限制导出的表

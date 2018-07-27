@@ -9,9 +9,6 @@ use yii\helpers\Url;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use app\models\Tools;
-use app\models\LoginForm;
-use app\models\User;
 use yii\base\Exception;
 use yii\data\Pagination;
 
@@ -19,6 +16,12 @@ use yii\Roc\IO;
 use yii\Roc\Session;
 use yii\Roc\Sms\Sms;
 use yii\Roc\Captcha\Captcha;
+
+use app\models\Authority;
+use app\models\Text;
+use app\models\LoginForm;
+use app\models\User;
+use app\models\DepartmentUser;
 
 class UserController extends Controller
 {
@@ -43,9 +46,32 @@ class UserController extends Controller
 
 	public function actionEdit($userid){
 		$this->layout = 'admin';
+		$du = DepartmentUser::find()->where('userid=' . $userid)->one();
+		if(!$du){
+			$du = new DepartmentUser();
+		}
 		$user = User::findOne($userid);
+		$text = new Text();
+		$text->name = Authority::getRoleByUser($user->id)->name;
+		$post = Yii::$app->request->post();
+		$message = '';
+		if($du->load($post) && $du->departmentid <> 0){
+			$du->userid = $user->id;
+			$du->save();
+			$message = '修改部门成功';
+		}
+		if($text->load($post) && $text->name <> '0'){
+			Authority::assign($text->name, $user->id);
+			$message = $message . '\n编辑角色成功';
+		}
+
+		if($message<>''){
+			Yii::$app->session->setFlash('message', $message);
+		}
 		return $this->render('edit', [
-			'user' => $user,
+			'user'	=> $user,
+			'du'	=> $du,
+			'text'	=> $text,
 		]);
 	}
 

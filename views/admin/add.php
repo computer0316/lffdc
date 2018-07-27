@@ -37,10 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<?php echo $form->field($model,'title_after'); ?>
 
-		<?php echo $form->field($model,'department')->textInput(['value' => '1']); ?>
-
-		<?php echo $form->field($model,'creater')->textInput(['value' => $user->name, 'readonly' => 'readonly']); ?>
-
 		<?php echo $form->field($model,'updatetime')->textInput(['value' => date("Y-m-d H:i:s", time())]); ?>
 
 		<?php echo $form->field($model,'ontop')->textInput(['value' => 0]); ?>

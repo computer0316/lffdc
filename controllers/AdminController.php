@@ -76,7 +76,8 @@ class AdminController extends Controller
     	$post = Yii::$app->request->post();
     	$user = Yii::$app->user->identity;
     	if($article->load($post)){
-
+			$article->creater = $user->id;
+			$article->save();
     	}
         return $this->render('add',[
         	'model' => $article,

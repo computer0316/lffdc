@@ -4,6 +4,9 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
+use app\models\DepartmentUser;
+use app\models\Department;
+
 $this->title = '用户管理';
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -23,7 +26,16 @@ echo '<table class="table-list">';
 		echo '<tr>';
 			echo '<td>' . $user->name . '</td>';
 			echo '<td>' . $user->mobile . '</td>';
-			echo '<td>所属部门</td>';
+			echo '<td>';
+				$du = DepartmentUser::find()->where('userid=' . $user->id)->one();
+				if($du){
+					$department = Department::findOne($du->departmentid);
+					echo $department->name;
+				}
+				else{
+					echo 'n/a';
+				}
+			echo '</td>';
 			echo '<td>' . $user->updatetime . '</td>';
 			echo '<td>';
 				$auth = Yii::$app->authManager;

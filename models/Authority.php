@@ -46,11 +46,21 @@ class Authority extends \yii\base\Model
 	// 将权限付给角色
 	public static function assign($roleName, $userid)
     {
-    	echo $roleName . '<br />';
-    	echo $userid . '<br />';
         $auth = Yii::$app->authManager;
         $role = $auth->getRole($roleName);                //创建角色对象
+        $auth->revokeAll($userid);
         $auth->assign($role, $userid);                           //添加对应关系
+    }
+
+    public static function getRoleByUser($id){
+    	$auth = Yii::$app->authManager;
+    	$role = $auth->getRolesByUser($id);
+    	if($role){
+    		foreach($role as $r){
+    			return $r;
+    		}
+    	}
+    	return null;
     }
 	public static function checkAccess($userid, $roleName){
 		$auth = Yii::$app->authManager;
