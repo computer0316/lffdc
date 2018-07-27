@@ -18,6 +18,7 @@ use yii\Roc\Sms\Sms;
 use yii\Roc\Captcha\Captcha;
 
 use app\models\Authority;
+use app\models\Category;
 use app\models\Text;
 use app\models\LoginForm;
 use app\models\User;
@@ -46,13 +47,19 @@ class UserController extends Controller
 
 	public function actionEdit($userid){
 		$this->layout = 'admin';
+
 		$du = DepartmentUser::find()->where('userid=' . $userid)->one();
 		if(!$du){
 			$du = new DepartmentUser();
 		}
 		$user = User::findOne($userid);
+
 		$text = new Text();
 		$text->name = Authority::getRoleByUser($user->id)->name;
+
+		$category = Category::find()->where('id>0')->all();
+		$category = ArrayHelper::map($category, 'id', 'name');
+
 		$post = Yii::$app->request->post();
 		$message = '';
 		if($du->load($post) && $du->departmentid <> 0){
@@ -72,6 +79,7 @@ class UserController extends Controller
 			'user'	=> $user,
 			'du'	=> $du,
 			'text'	=> $text,
+			'category' => $category,
 		]);
 	}
 
