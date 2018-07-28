@@ -9,7 +9,7 @@
 	use app\models\Authority;
 	use app\models\Department;
 	use app\models\DepartmentUser;
-	use app\models\Text;
+	use app\models\Common;
 	use app\models\Category;
 	// 客户信息窗体
 
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 			<?= $form->field($du, 'departmentid')->label("&nbsp;")->dropDownList(['0' => '请选择部门'] + ArrayHelper::map(Department::find()->where('id>0')->all(),'id', 'name')) ?>
 
-			<?= $form->field($text, 'name')->label("&nbsp;")->dropDownList(['0' => '请选择角色'] + ArrayHelper::map(Authority::getRoles(), 'name', 'name')) ?>
+			<?= $form->field($common, 'name')->label("&nbsp;")->dropDownList(['0' => '请选择角色'] + ArrayHelper::map(Authority::getRoles(), 'name', 'name')) ?>
 
 			<?= $form->field($user, 'id')->hiddenInput()->label(false) ?>
 
@@ -38,15 +38,15 @@ $this->params['breadcrumbs'][] = $this->title;
 			echo '<td>名称</td>';
 			echo '<td>选择</td>';
 		echo '</tr>';
-		showSub(-1, 0, $form);
+		showSub(-1, 0, $form, $common);
 	echo '</table>';
 
-	function showSub($id, $level, $form){
+	function showSub($id, $level, $form, $common){
 		$cates = Category::find()->where('fatherid = ' . $id)->all();
 		if($cates){
 			foreach($cates as $cate){
-				show($cate, $level, $form);
-				showSub($cate->id, $level + 1, $form);
+				show($cate, $level, $form, $common);
+				showSub($cate->id, $level + 1, $form, $common);
 			}
 		}
 		else{
@@ -54,11 +54,17 @@ $this->params['breadcrumbs'][] = $this->title;
 		}
 	}
 
-	function show($cate, $level, $form){
+	function show($cate, $level, $form, $common){
 			echo '<tr>';
 				echo '<td>' . $cate->id . '</td>';
 				echo '<td>' . str_pad("", $level * 8, "~") . ($cate->name==null ? $cate->url : $cate->name) . '</td>';
-				echo '<td><input type="checkbox" name="checkbox" id="checkbox" value="' . $cate->id . '"></td>' . "\n";
+				if(in_array($cate->id, $common->arr)){
+					echo '<td><input type="checkbox" checked name="Common[arr][' . $cate->id . ']" value="' . $cate->id . '"></td>' . "\n";
+				}
+				else{
+					echo '<td><input type="checkbox" name="Common[arr][' . $cate->id . ']" value="' . $cate->id . '"></td>' . "\n";
+				}
+
 			echo '</tr>';
 	}
 ?>

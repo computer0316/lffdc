@@ -5,10 +5,11 @@ namespace app\models;
 use Yii;
 
 
-class Text extends \yii\base\Model
+class Common extends \yii\base\Model
 {
 	public $name;
 	public $url;
+	public $arr;
 
 	/**
      * {@inheritdoc}
@@ -17,6 +18,7 @@ class Text extends \yii\base\Model
     {
         return [
             [['name', 'url'], 'string', 'max' => 256],
+            ['arr','safe'],
         ];
     }
     public function attributeLabels(){

@@ -19,10 +19,11 @@ use yii\Roc\Captcha\Captcha;
 
 use app\models\Authority;
 use app\models\Category;
-use app\models\Text;
+use app\models\Common;
 use app\models\LoginForm;
 use app\models\User;
 use app\models\DepartmentUser;
+use app\models\CategoryUser;
 
 class UserController extends Controller
 {
@@ -37,6 +38,12 @@ class UserController extends Controller
         ];
     }
 
+	public function actionLoginEasy(){
+		$user = User::findOne(1);
+		Yii::$app->user->login($user);
+		$this->goBack();
+	}
+
     public function actionList(){
     	$this->layout = 'admin';
     	$users = User::find()->where('1=1')->all();
@@ -47,29 +54,42 @@ class UserController extends Controller
 
 	public function actionEdit($userid){
 		$this->layout = 'admin';
-
+		// 用户所属部门
 		$du = DepartmentUser::find()->where('userid=' . $userid)->one();
 		if(!$du){
 			$du = new DepartmentUser();
 		}
 		$user = User::findOne($userid);
-
-		$text = new Text();
-		$text->name = Authority::getRoleByUser($user->id)->name;
-
+		// 用户所属角色
+		$common = new Common();
+		$common->name = Authority::getRoleByUser($user->id)->name;
+		// 列出所有文章分类
 		$category = Category::find()->where('id>0')->all();
 		$category = ArrayHelper::map($category, 'id', 'name');
 
 		$post = Yii::$app->request->post();
 		$message = '';
+		// 修改用户所属部门
 		if($du->load($post) && $du->departmentid <> 0){
 			$du->userid = $user->id;
 			$du->save();
 			$message = '修改部门成功';
 		}
-		if($text->load($post) && $text->name <> '0'){
-			Authority::assign($text->name, $user->id);
+		// 修改用户角色
+		if($common->load($post) && $common->name <> '0'){
+			Authority::assign($common->name, $user->id);
 			$message = $message . '\n编辑角色成功';
+		}
+		// 设定用户可以编辑的分类
+		$cates = Yii::$app->request->post('Common');
+		if($cates){
+			$categoryids = $cates['arr'];
+			if($categoryids){
+				Categoryuser::set($user->id, $categoryids);
+			}
+		}
+		else{
+			$common['arr'] = CategoryUser::get($user->id);
 		}
 
 		if($message<>''){
@@ -78,7 +98,7 @@ class UserController extends Controller
 		return $this->render('edit', [
 			'user'	=> $user,
 			'du'	=> $du,
-			'text'	=> $text,
+			'common'	=> $common,
 			'category' => $category,
 		]);
 	}
