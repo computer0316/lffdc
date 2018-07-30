@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\CategoryUser;
 
 /**
  * This is the model class for table "user".
@@ -24,6 +25,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function tableName()
     {
         return 'user';
+    }
+
+    public function getCategories(){
+    	return $this->hasMany(CategoryUser::className(), ['userid' => 'id']);
     }
 
     /*

@@ -7,9 +7,11 @@ use Yii;
 
 class Common extends \yii\base\Model
 {
+	public $id;
 	public $name;
 	public $url;
 	public $arr;
+	public $number;
 
 	/**
      * {@inheritdoc}
@@ -18,6 +20,7 @@ class Common extends \yii\base\Model
     {
         return [
             [['name', 'url'], 'string', 'max' => 256],
+            [['id', 'number'], 'integer'],
             ['arr','safe'],
         ];
     }

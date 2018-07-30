@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php $form = ActiveForm::begin(); ?>
 
-		<?php echo $form->field($text,'name')->label('名称或者url')->textInput(['style'=> 'width:600px;']); ?>
+		<?php echo $form->field($common,'name')->label('名称或者url')->textInput(['style'=> 'width:600px;']); ?>
 
 
 

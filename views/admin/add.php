@@ -4,7 +4,7 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\redactor\RedactorModule;
-
+use app\models\Common;
 
 $this->title = '添加文章';
 $this->params['breadcrumbs'][] = $this->title;
@@ -30,6 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
 </style>
 
     <?php $form = ActiveForm::begin(); ?>
+
+		<?php echo $form->field(new Common(),'id')->dropDownList($categories); ?>
 
 		<?php echo $form->field($model,'title_before'); ?>
 

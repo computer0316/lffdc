@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use app\models\Category;
 
 /**
  * This is the model class for table "category_user".
@@ -35,6 +36,14 @@ class CategoryUser extends \yii\db\ActiveRecord
     public static function get($userid){
     	$cates = CategoryUser::find()->where('userid=' . $userid)->all();
     	return ArrayHelper::map($cates, 'categoryid', 'categoryid');
+    }
+
+    // 读取某用户的所有文章分类，返回分类名称
+    public static function getNames($userid){
+    	$cates = CategoryUser::find()->where('userid=' . $userid)->all();
+    	$cates = ArrayHelper::map($cates, 'categoryid', 'categoryid');
+		$categories = Category::find()->where('id in (' . implode(",", $cates) . ')')->all();
+		return ArrayHelper::map($categories, 'id', 'name');
     }
 
     /**
