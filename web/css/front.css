@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* font  */
 /* color */
 html, body, div, p, ul, ol, li, table, tr, td, label, input, select {
@@ -12,6 +13,8 @@ a {
   text-decoration: none; }
 
 table {
+  width: auto;
+  margin: 0px auto;
   border-collapse: collapse; }
   table tr, table td {
     border-collapse: collapse;
@@ -19,7 +22,25 @@ table {
   table td {
     padding: 5px; }
 
-.header, .container, .footer {
+.breadcrumb {
+  float: left;
+  width: 100%;
+  padding-left: 10px;
+  line-height: 30px;
+  border-bottom: 1px solid #ddd; }
+
+.breadcrumb li {
+  float: left;
+  color: #dc143c; }
+  .breadcrumb li a {
+    color: #dc143c; }
+  .breadcrumb li:after {
+    margin: 0 10px;
+    content: ">"; }
+  .breadcrumb li:last-child:after {
+    content: ""; }
+
+.header, .container {
   width: 1200px;
   margin: 0 auto; }
 
@@ -51,7 +72,22 @@ table {
       color: white; }
 
 .footer {
+  height: 120px;
+  padding: 10px;
+  background: #ddd;
   text-align: center;
   font-size: 12px; }
+
+/************* 文章 *************/
+.title {
+  font: 24px 宋体;
+  font-weight: bold;
+  text-align: center;
+  line-height: 64px; }
+
+.content {
+  text-indent: 2em; }
+  .content p {
+    margin-top: 10px; }
 
 /*# sourceMappingURL=front.css.map */

@@ -13,12 +13,32 @@ a {
   text-decoration: none; }
 
 table {
+  width: auto;
+  margin: 0px auto;
   border-collapse: collapse; }
   table tr, table td {
     border-collapse: collapse;
     border: 1px solid deepskyblue; }
   table td {
     padding: 5px; }
+
+.breadcrumb {
+  float: left;
+  width: 100%;
+  padding-left: 10px;
+  line-height: 30px;
+  border-bottom: 1px solid #ddd; }
+
+.breadcrumb li {
+  float: left;
+  color: #dc143c; }
+  .breadcrumb li a {
+    color: #dc143c; }
+  .breadcrumb li:after {
+    margin: 0 10px;
+    content: ">"; }
+  .breadcrumb li:last-child:after {
+    content: ""; }
 
 .header {
   float: left;
@@ -82,24 +102,6 @@ table {
     text-decoration: none; }
   .menuItem:hover {
     background: #0f8dc7; }
-
-.breadcrumb {
-  float: left;
-  width: 100%;
-  padding-left: 10px;
-  line-height: 30px;
-  border-bottom: 1px solid #ddd; }
-
-.breadcrumb li {
-  float: left;
-  color: #dc143c; }
-  .breadcrumb li a {
-    color: #dc143c; }
-  .breadcrumb li:after {
-    margin: 0 10px;
-    content: ">"; }
-  .breadcrumb li:last-child:after {
-    content: ""; }
 
 .form-group {
   float: left;

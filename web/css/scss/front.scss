@@ -1,5 +1,5 @@
 @import "_main.scss";
-.header, .container, .footer{
+.header, .container{
 	width:1200px;
 	margin:0 auto;
 }
@@ -37,6 +37,26 @@
 }
 
 .footer{
+	height:120px;
+	padding:10px;
+	background:$lightGray;
 	text-align:center;
 	font-size:$small;
+}
+
+/************* 文章 *************/
+.title{
+	font:24px 宋体;
+	font-weight:bold;
+	text-align:center;
+	line-height:64px;
+}
+.sub-title{
+
+}
+.content{
+	text-indent:2em;
+	p{
+		margin-top:10px;
+	}
 }

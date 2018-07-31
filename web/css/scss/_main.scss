@@ -24,6 +24,8 @@
 	a{text-decoration:none;}
 	
 	table{
+		width:auto;
+		margin:0px auto;
 		border-collapse:collapse;
 		tr,td{
 			border-collapse:collapse;
@@ -34,3 +36,24 @@
 		}
 	}
 
+	.breadcrumb{
+		float:left;
+		width:100%;
+		padding-left:10px;
+		line-height:30px;
+		border-bottom:1px solid $lightGray;
+	}
+	.breadcrumb li{
+		float:left;
+		color:#dc143c;
+		a{
+			color:#dc143c;
+		}
+		&:after{
+			margin:0 10px;
+			content:">";
+		}
+		&:last-child:after{
+			content:"";
+		}
+	}

@@ -43,8 +43,8 @@ use yii\widgets\Breadcrumbs;
 	<?= $content ?>
 </div>
 <footer class="footer">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-left">&copy; <?= Yii::$app->params['siteName'] ?> <?= date('Y') ?></p>
+        <p class="pull-right">Roc</p>
 </footer>
 <?= Alert::widget() ?>
 <?php $this->endBody() ?>

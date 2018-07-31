@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\data\Pagination;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -67,11 +68,36 @@ class SiteController extends Controller
         ]);
     }
 
+    // 文章列表
+    public function actionList($category = 0){
+    	$condition = '';
+    	if($category == 0){
+    		$condition = "categoryid>0";
+    	}
+    	else{
+    		$condition = " category_article.categoryid = " . $category;
+    	}
+		$query = Article::find()->orderBy('id desc')->select("*")->innerJoin('category_article', 'category_article.articleid = article.id')->where($condition);
+        $count	= $query->count();
+        $pagination = new Pagination(['totalCount' => $count]);
+        $pagination->pageSize = 18;
+        $articles	= $query->offset($pagination->offset)
+                    ->limit($pagination->limit)
+                    ->all();
+        return $this->render('list', [
+        	'category'		=> $category,
+        	'articles'		=> $articles,
+            'pagination'    => $pagination,
+                    ]);
+    	return $this->render('list');
+    }
+    
 	// 显示文章
-	public function actionShow($id){
+	public function actionShow($category, $id){
 		$article = Article::findOne($id);
 		if($article){
 			return $this->render('show', [
+				'category'	=> $category,
 				'article'	=> $article,
 			]);
 		}
