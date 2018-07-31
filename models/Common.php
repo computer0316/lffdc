@@ -20,7 +20,7 @@ class Common extends \yii\base\Model
     {
         return [
             [['name', 'url'], 'string', 'max' => 256],
-            [['id', 'number'], 'integer'],
+            [['id', 'number'], 'integer', 'message' => '不能为空'],
             ['arr','safe'],
         ];
     }

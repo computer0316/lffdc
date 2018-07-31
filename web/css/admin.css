@@ -12,6 +12,14 @@ ul {
 a {
   text-decoration: none; }
 
+table {
+  border-collapse: collapse; }
+  table tr, table td {
+    border-collapse: collapse;
+    border: 1px solid deepskyblue; }
+  table td {
+    padding: 5px; }
+
 .header {
   float: left;
   width: 100%;
@@ -94,8 +102,9 @@ a {
     content: ""; }
 
 .form-group {
+  float: left;
   clear: both;
-  margin: 5px;
+  margin-top: 10px;
   font-size: 14px; }
 
 .control-label {
@@ -105,10 +114,12 @@ a {
   margin-right: 10px; }
 
 input, select {
+  float: left;
   padding: 3px;
   border: 1px solid skyblue; }
 
 .help-block {
+  float: left;
   color: red;
   width: auto;
   margin-left: 10px; }
@@ -117,6 +128,18 @@ input, select {
   float: left;
   clear: both;
   margin: 20px 10px 10px 110px; }
+
+.button {
+  background-color: #0f8dc7;
+  /* Green */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 6px 64px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px; }
 
 .ul-list {
   width: 90%;

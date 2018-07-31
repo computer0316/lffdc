@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -17,6 +18,7 @@ use app\models\Category;
 use app\models\CategoryUser;
 use app\models\CategoryArticle;
 use app\models\Common;
+
 
 class AdminController extends Controller
 {
@@ -109,8 +111,26 @@ class AdminController extends Controller
         ]);
     }
 
-    public function actionList(){
+    public function actionList($category = 0){
     	$this->layout = 'admin';
+    	$condition = '';
+    	if($category == 0){
+    		$condition = "categoryid>0";
+    	}
+    	else{
+    		$condition = " category_article.categoryid = " . $category;
+    	}
+		$query = Article::find()->orderBy('id desc')->select("*")->innerJoin('category_article', 'category_article.articleid = article.id')->where($condition);
+        $count	= $query->count();
+        $pagination = new Pagination(['totalCount' => $count]);
+        $pagination->pageSize = 18;
+        $articles	= $query->offset($pagination->offset)
+                    ->limit($pagination->limit)
+                    ->all();
+        return $this->render('list', [
+                    'articles'     => $articles,
+                    'pagination'    => $pagination,
+                    ]);
     	return $this->render('list');
     }
 

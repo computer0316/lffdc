@@ -67,6 +67,16 @@ class SiteController extends Controller
         ]);
     }
 
+	// 显示文章
+	public function actionShow($id){
+		$article = Article::findOne($id);
+		if($article){
+			return $this->render('show', [
+				'article'	=> $article,
+			]);
+		}
+	}
+	
 	/*
 	 * 为了匹配 yii2 的默认登录设置
 	 * yii2 默认登录方法为： site/login，我的登录方法为：user/login

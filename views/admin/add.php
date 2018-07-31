@@ -12,26 +12,20 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style>
 	.field-article-title input{
-			font-size:16px;
-			width:800px;
+		border:1px solid red;
 	}
-	.field-article-title_before input,.field-article-title_after input{
+	.field-article-title input, .field-article-title_before input,.field-article-title_after input{
 		width:760px;
 	}
-	.field-article-creater,.field-article-department,.field-article-updatetime, .field-article-ontop{
+	.field-article-updatetime, .field-article-ontop{
 		float:left;
 		clear:none;
-		width:auto;
-		margin-top:20px;
-		input{
-			width:auto;
-		}
 	}
 </style>
 
     <?php $form = ActiveForm::begin(); ?>
 
-		<?php echo $form->field(new Common(),'id')->dropDownList($categories); ?>
+		<?php echo $form->field(new Common(),'id')->label("&nbsp;")->dropDownList(['-' => '请选择栏目'] + $categories); ?>
 
 		<?php echo $form->field($model,'title_before'); ?>
 
@@ -39,9 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 		<?php echo $form->field($model,'title_after'); ?>
 
-		<?php echo $form->field($model,'updatetime')->textInput(['value' => date("Y-m-d H:i:s", time())]); ?>
-
+		<?php echo $form->field($model,'number'); ?>
+		
 		<?php echo $form->field($model,'ontop')->textInput(['value' => 0]); ?>
+		
+		<?php echo $form->field($model,'updatetime')->textInput(['value' => date("Y-m-d H:i:s", time())]); ?>	
+		
 
 
 <div class="text-area">
@@ -61,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="form-group">
         	<div class="control-label">&nbsp;</div>
-                <?= Html::submitButton('提交') ?>
+                <?= Html::submitButton('提交', ['class' => 'button']) ?>
         </div>
 
     <?php ActiveForm::end(); ?>
