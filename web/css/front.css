@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* font  */
+/* font  中文*/
 /* color */
 html, body, div, p, ul, ol, li, table, tr, td, label, input, select {
   margin: 0;
@@ -46,7 +46,8 @@ table {
 
 .header {
   height: 200px;
-  background: url("../images/1.jpg"); }
+  background: url("../images/1.jpg") no-repeat;
+  background-size: 1200px 200px; }
 
 .logo {
   margin-left: 50px;

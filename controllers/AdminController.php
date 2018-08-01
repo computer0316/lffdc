@@ -157,18 +157,25 @@ class AdminController extends Controller
 	 */
     public function actionAddcategory($id){
     	$this->layout = 'admin';
-    	$category = Category::findOne($id);
-    	$common = new Common();
+    	$father = Category::findOne($id);
+    	$category = new Category();
+    	$category->fatherid = $father->id;
     	$post = Yii::$app->request->post();
-    	if($common->load($post)){
-    		$cate = Category::add($common->name, $category->id);
+    	if($category->load($post)){
+    		$cate = Category::add($category);
     		return $this->redirect(Url::toRoute(['admin/category']));
     	}
     	return $this->render('addcategory', [
     		'category'	=> $category,
-    		'common'		=> $common,
     	]);
     }
+
+	public function actionDeleteCategory($id){
+		$this->layout = 'admin';
+		$cate = Category::findOne($id);
+		$cate->delete();
+		return $this->redirect(Url::toRoute(['admin/category']));
+	}
 
 	public function actionTest(){
 		echo strpos('123', '/');

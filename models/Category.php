@@ -11,7 +11,7 @@ use Yii;
  * @property string $name
  * @property int $fatherid
  * @property string $url 外部链接地址
- * @property int $outsite 是否外部链接
+ * @property int $addmenu 是否在导航菜单上显示
  */
 class Category extends \yii\db\ActiveRecord
 {
@@ -28,22 +28,20 @@ class Category extends \yii\db\ActiveRecord
 	 * $nameOrUrl 可以是分类名称，如果外部连接，则直接填写外部连接的 url
 	 * $fatherid 父分类ID
 	 */
-	public static function add($nameOrUrl, $fatherid){
-		$cate = Category::find()->where("name ='" . $nameOrUrl . "' or url='" . $nameOrUrl . "'")->one();
-		if($cate){
+	public static function add($category){
+		$cateTemp = Category::find()->where("name ='" . $category->name . "' or url='" . $category->name . "'")->one();
+		if($cateTemp){
 			Yii::$app->session->setFlash("message", "该分类已经存在");
 			return;
 		}
-		$cate = new Category();
-		$cate->fatherid = $fatherid;
-		if(strpos($nameOrUrl, '.') === false){
-			$cate->name = $nameOrUrl;
+
+		// 判断是外链还是本地分类
+		if(strpos($category->name, '.') != false){
+			$category->url = $category->name;
+			$category->name = '';
 		}
-		else{
-			$cate->url = $nameOrUrl;
-		}
-		$cate->save();
-		return $cate;
+		$category->save();
+		return $category;
 	}
 	public static function getAll(){
 		return self::find()->where('id>=0')->all();
@@ -55,8 +53,8 @@ class Category extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['fatherid'], 'required'],
-            [['fatherid', 'outsite'], 'integer'],
+            [['fatherid', 'name'], 'required'],
+            [['fatherid', 'addmenu'], 'integer'],
             [['name'], 'string', 'max' => 32],
             [['url'], 'string', 'max' => 512],
         ];
@@ -72,7 +70,7 @@ class Category extends \yii\db\ActiveRecord
             'name' => 'Name',
             'fatherid' => 'Fatherid',
             'url' => 'Url',
-            'outsite' => 'Outsite',
+            'addmenu' => 'addmenu',
         ];
     }
 }

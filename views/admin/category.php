@@ -6,7 +6,7 @@ use app\models\Category;
 $this->title = '栏目管理';
 $this->params['breadcrumbs'][] = $this->title;
 
-	echo '<table class="table-list" style="width:auto;">';
+	echo '<table class="table-list" style="float:left;width:auto;">';
 		echo '<tr class="table-title">';
 			echo '<td>顺序</td>';
 			echo '<td>ID</td>';
@@ -35,11 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
 				echo '<td>0</td>';
 				echo '<td>' . $cate->id . '</td>';
 				echo '<td>' . $cate->fatherid . '</td>';
-				echo '<td>' . str_pad("", $level * 8, "~") . ($cate->name==null ? $cate->url : $cate->name) . '</td>';
+				echo '<td>' . str_pad("", $level * 8, "-") . ($cate->name==null ? $cate->url : $cate->name) . '</td>';
 				echo '<td>';
 					echo '<a href="' . Url::toRoute(['admin/addcategory', 'id' => $cate->id]) . '">添加</a>';
 					echo ' 修改';
-					echo ' 删除';
+					echo ' <a onclick="' . 'javascript:return confirm(' . "'确认要删除“" . $cate->name . "”分类吗？')" . '" href="' . Url::toRoute(['admin/delete-category', 'id' => $cate->id]) . '">删除</a>';
 				echo '</td>';
 			echo '</tr>';
 	}

@@ -89,11 +89,10 @@ class SiteController extends Controller
         	'articles'		=> $articles,
             'pagination'    => $pagination,
                     ]);
-    	return $this->render('list');
     }
-    
+
 	// 显示文章
-	public function actionShow($category, $id){
+	public function actionShow($category=0, $id){
 		$article = Article::findOne($id);
 		if($article){
 			return $this->render('show', [
@@ -102,7 +101,7 @@ class SiteController extends Controller
 			]);
 		}
 	}
-	
+
 	/*
 	 * 为了匹配 yii2 的默认登录设置
 	 * yii2 默认登录方法为： site/login，我的登录方法为：user/login

@@ -5,7 +5,11 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Category;
+use app\models\CategoryArticle;
 
+if($category == 0){
+	$category = CategoryArticle::find()->where('articleid = ' . $article->id)->one()->categoryid;
+}
 $this->title = Category::findOne($category)->name . ' - ' . Yii::$app->params['siteName'];
 $this->params['breadcrumbs'][] = Category::findOne($category)->name;
 

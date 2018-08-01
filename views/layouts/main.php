@@ -25,7 +25,7 @@ use yii\widgets\Breadcrumbs;
 <?php $this->beginBody() ?>
 
 <div class="header">
-	<p class="logo"><?= Yii::$app->params['siteName'] ?></p>
+	<p class="logo"></p>
 </div>
 <div class="nav">
 <ul>
