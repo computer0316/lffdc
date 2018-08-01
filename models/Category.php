@@ -29,17 +29,16 @@ class Category extends \yii\db\ActiveRecord
 	 * $fatherid 父分类ID
 	 */
 	public static function add($category){
-		$cateTemp = Category::find()->where("name ='" . $category->name . "' or url='" . $category->name . "'")->one();
+		$condition = "(name ='" . $category->name . "' and fatherid = " . $category->fatherid . ')';
+		if(!empty($category->url)){
+			$condition = $condition . " or url='" . $category->url . "'";
+		}
+		$cateTemp = Category::find()->where($condition)->one();
 		if($cateTemp){
 			Yii::$app->session->setFlash("message", "该分类已经存在");
 			return;
 		}
 
-		// 判断是外链还是本地分类
-		if(strpos($category->name, '.') != false){
-			$category->url = $category->name;
-			$category->name = '';
-		}
 		$category->save();
 		return $category;
 	}

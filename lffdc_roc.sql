@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-08-01 09:52:39
+-- Generation Time: 2018-08-01 16:21:31
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `url` varchar(512) DEFAULT NULL COMMENT '外部链接地址',
   `addmenu` int(11) DEFAULT NULL COMMENT '是否外部链接',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=61 ;
 
 --
 -- 转存表中的数据 `category`
@@ -173,7 +173,23 @@ INSERT INTO `category` (`id`, `name`, `fatherid`, `url`, `addmenu`) VALUES
 (35, '房屋安全', 29, NULL, 0),
 (36, '办事指南', 0, NULL, 1),
 (37, '资质管理', 36, NULL, 0),
-(39, '商品房预售1', 36, NULL, 0);
+(41, '商品房预售', 36, '', 0),
+(45, '房管局办事指南（河北政务服务网）', 36, 'http://www.hbzwfw.gov.cn/hbzw/sxcx/itemList/fr_index.do?webId=11&enterprise_zt=&deptid=131000039&isonline=', 0),
+(46, '住房保障', 0, '', 1),
+(47, '公共住房', 46, '', 0),
+(48, '现价商品房', 46, '', 0),
+(49, '保障房建设', 46, '', 0),
+(50, '经济适用住房', 46, '', 0),
+(51, '文档下载', 36, '', 0),
+(52, '行政执法公示', 0, '', 0),
+(53, '事前公开', 52, '', 0),
+(54, '事后公开', 52, '', 0),
+(55, '行政许可', 54, '', 0),
+(56, '行政处罚', 54, '', 0),
+(57, '行政检查', 54, '', 0),
+(58, '纠风专项整治', 0, '', 0),
+(59, '机关党建', 0, '', 0),
+(60, '房产新闻', 0, '', 0);
 
 -- --------------------------------------------------------
 
