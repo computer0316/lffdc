@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category_article".
@@ -12,6 +13,10 @@ use Yii;
  */
 class CategoryArticle extends \yii\db\ActiveRecord
 {
+	public static function getCategories($articleid){
+		$categories = self::find()->where('articleid = ' . $articleid)->all();
+		return ArrayHelper::getValue($categories, 'CategoryArticle.categoryid');
+	}
     /**
      * {@inheritdoc}
      */
