@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2018-07-27 10:55:18
+-- Generation Time: 2018-08-01 09:52:39
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `article` (
   `times` int(11) DEFAULT NULL,
   `ontop` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `article`
@@ -46,7 +46,14 @@ CREATE TABLE IF NOT EXISTS `article` (
 
 INSERT INTO `article` (`id`, `title_before`, `title`, `title_after`, `number`, `text`, `creater`, `updatetime`, `times`, `ontop`) VALUES
 (1, '', '这里是标题', '', NULL, '<p>&lt;a href="#"&gt;test&lt;/a&gt;</p>', 7, '2018-07-27 10:46:59', NULL, 0),
-(2, '', '这里是标题', '', NULL, '<p>&lt;a href="#"&gt;test&lt;/a&gt;</p>', 7, '2018-07-27 10:46:59', NULL, 0);
+(2, '', '这里是标题', '', NULL, '<p>&lt;a href="#"&gt;test&lt;/a&gt;</p>', 7, '2018-07-27 10:46:59', NULL, 0),
+(3, '', '这里是标题', '', NULL, '<p>sdf</p>', 7, '2018-07-27 11:21:39', NULL, 0),
+(4, '', '这里是标题', '', NULL, '<p>thry</p>', 1, '2018-07-30 16:58:08', NULL, 0),
+(5, '', '这里是标题', '', NULL, '<p>thry</p>', 1, '2018-07-30 16:58:08', NULL, 0),
+(6, '', '这里是标题', '', NULL, '<p>ddd</p>', 1, '2018-07-30 17:02:05', NULL, 0),
+(7, '', '这里是标题', '', NULL, '<p>sdfsdf</p>', 1, '2018-07-30 17:02:42', NULL, 0),
+(8, '', '这里是标题', '', NULL, '<p>kluh</p>', 1, '2018-07-30 17:03:13', NULL, 0),
+(9, '', '市房管局举行“我为提升服务献一计”活动', '', '', '<p> 为深入开展“解放思想大讨论”活动，全面查找我局机关服务存在的不足，进一步改进工作作风，提高全局的服务水平和工作效率，增强全体工作人员立足岗位、干事创业的责任感，市房管局于7月27日开展了“我为提升服务献一计”活动。 </p><p> “我为提升服务献一计”活动面向全体工作人员，内容要求就如何提升服务素质、优化环境服务、改革服务流程、打造服务品牌、完善服务机制等方面谈感想、提建议、献计策。此次活动得到了全体工作人员的热烈支持，共收到有效建议18条，为提升我局机关服务效率和服务质量具有一定的借鉴意义。会上，市房管局党委书记、局长刘文荣就局机关如何进一步提升服务提出了要求。一是认清形势，找准提升服务制高点。按照“六个高质量”发展要求，持续推进“放管服”改革，完善政务服务“一张网”建设，建立标准体系，强化联动机制，拓展服务功能。二是倾心工作，找准提升服务的发力点。全体机关工作人员要树立全局一盘棋的思想，上下同心、目标同向、工作同步，在机关要能坐得住，在基层能够沉下去，振奋精神，始终锐意进取，全心全意做好机关工作和对局属基层单位的督查指导。局机关各处室要把前期梳理的解放思想大讨论调研成果，实实在在落到解决深层次问题上来。 </p>', 1, '2018-08-01 07:16:55', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -67,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 --
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('admin', '1', 1532655598),
+('admin', '1', 1532939512),
 ('admin', '7', 1532658060),
 ('user', '6', 1532414741);
 
@@ -139,30 +146,34 @@ CREATE TABLE IF NOT EXISTS `category` (
   `name` varchar(32) DEFAULT NULL,
   `fatherid` int(11) NOT NULL,
   `url` varchar(512) DEFAULT NULL COMMENT '外部链接地址',
-  `outsite` int(11) DEFAULT NULL COMMENT '是否外部链接',
+  `addmenu` int(11) DEFAULT NULL COMMENT '是否外部链接',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=40 ;
 
 --
 -- 转存表中的数据 `category`
 --
 
-INSERT INTO `category` (`id`, `name`, `fatherid`, `url`, `outsite`) VALUES
+INSERT INTO `category` (`id`, `name`, `fatherid`, `url`, `addmenu`) VALUES
 (0, '根', -1, '', 0),
-(3, '房产新闻', 0, NULL, NULL),
-(4, '物业新闻', 3, NULL, NULL),
-(6, '中介新闻', 3, NULL, NULL),
-(7, '产权交易', 3, NULL, NULL),
-(8, '本地新闻', 3, NULL, NULL),
-(9, NULL, 3, 'http://www.ifeng.com/', NULL),
-(10, '政策法规', 0, NULL, NULL),
-(11, '政务公开', 0, NULL, NULL),
-(12, '办事指南', 0, NULL, NULL),
-(13, '行政执法公示', 0, NULL, NULL),
-(14, '商品房预售', 11, NULL, NULL),
-(15, '开发企业资质', 11, NULL, NULL),
-(16, '售前预售', 14, NULL, NULL),
-(17, '售后预售', 14, NULL, NULL);
+(20, '政务公开', 0, NULL, 1),
+(21, '商品房预售', 20, NULL, 1),
+(22, '开发企业资质', 20, NULL, 1),
+(23, '物业企业资质', 20, NULL, 1),
+(24, '房地产估价机构', 20, NULL, 1),
+(25, '房地产经纪机构', 20, NULL, 0),
+(26, '行政处罚案件', 20, NULL, 0),
+(28, '政务公告', 20, NULL, 0),
+(29, '政策法规', 0, NULL, 1),
+(30, '房产开发', 29, NULL, 0),
+(31, '物业管理', 29, NULL, 0),
+(32, '产权交易', 29, NULL, 0),
+(33, '中介评估', 29, NULL, 0),
+(34, '住房保障', 29, NULL, 0),
+(35, '房屋安全', 29, NULL, 0),
+(36, '办事指南', 0, NULL, 1),
+(37, '资质管理', 36, NULL, 0),
+(39, '商品房预售1', 36, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -175,6 +186,42 @@ CREATE TABLE IF NOT EXISTS `category_article` (
   `articleid` int(11) NOT NULL,
   PRIMARY KEY (`categoryid`,`articleid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `category_article`
+--
+
+INSERT INTO `category_article` (`categoryid`, `articleid`) VALUES
+(3, 4),
+(3, 5),
+(3, 6),
+(3, 7),
+(3, 9),
+(4, 8);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `category_user`
+--
+
+CREATE TABLE IF NOT EXISTS `category_user` (
+  `categoryid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
+  PRIMARY KEY (`categoryid`,`userid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `category_user`
+--
+
+INSERT INTO `category_user` (`categoryid`, `userid`) VALUES
+(3, 1),
+(4, 1),
+(6, 1),
+(7, 1),
+(8, 1),
+(9, 1);
 
 -- --------------------------------------------------------
 
@@ -246,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `name`, `mobile`, `password`, `firsttime`, `updatetime`, `ip`, `admin`) VALUES
 (1, 'Roc', '13931657890', 'd4cd5e9c8f07658b81a06d17b6d321ea', '0000-00-00 00:00:00', '2018-07-02 08:56:05', '127.0.0.1', 1),
-(7, '15530639625', '15530639625', '2226ce94cf0f3231556d320a9260f037', '2018-07-25 14:14:43', '2018-07-27 08:30:04', '127.0.0.1', 0);
+(7, '15530639625', '15530639625', '2226ce94cf0f3231556d320a9260f037', '2018-07-25 14:14:43', '2018-07-27 11:21:25', '127.0.0.1', 0);
 
 --
 -- 限制导出的表
