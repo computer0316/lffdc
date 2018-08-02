@@ -179,9 +179,6 @@ class AdminController extends Controller
 		return $this->redirect(Url::toRoute(['admin/category']));
 	}
 
-	public function actionTest(){
-		echo strpos('123', '/');
-	}
     public function actionSite(){
     	$this->layout = 'admin';
     	return $this->render('site');
@@ -223,14 +220,16 @@ class AdminController extends Controller
 			65 => 56,
 			66 => 57,
     	];
+
 		$news = News::find()->where('ismember = 0')->all();
+		echo '<meta charset="utf-8">';
 		ob_start();
 		foreach($news as $n){
 			$data = Data::findOne($n->id);
 			$a = new Article();
 			$ca = new CategoryArticle();
 			$a->title = $n->title;
-			$a->text = $data->newstext;
+			$a->text = $this->strip_word_html($data->newstext);
 			$a->updatetime = date("Y-m-d H:i:s", $n->truetime);
 			$a->times = $n->onclick;
 			$a->ontop = $n->istop;
@@ -247,9 +246,50 @@ class AdminController extends Controller
 			}
 			else{
 				echo '<meta charset="utf-8">';
-				var_dump($a->errors);
+				echo '出错文章：' . $a->title . '<br />';
+				echo '原始编号：' . $n->id;
 				die();
 			}
 		}
     }
+
+    public function actionTest(){
+    	$this->layout = 'admin';
+    	//$n = News::findOne(3043);
+    	$d = Data::findOne(3043);
+    	$str = $d->newstext;
+    	//$str = '<p><span>房号<span></span></span></p>';
+    	$count1 = strlen($str);
+    	$text = $this->strip_word_html($str);
+    	$count2 = strlen($text);
+    	//$text = $str;
+    	return $this->render('test', [
+    		'text' => $text,
+    		'count1' => $count1,
+    		'count2' => $count2,
+    	]);
+    }
+
+	function strip_word_html($text){
+		$pattern = '/style=\\\".*?\\\"/';
+		$text = preg_replace($pattern, '', $text);
+		$pattern = '/class=\\\".*?\\\"/';
+		$text = preg_replace($pattern, '', $text);
+		$pattern = '/align=\\\".*?\\\"/';
+		$text = preg_replace($pattern, '', $text);
+		$pattern = '/lang=\\\".*?\\\"/';
+		$text = preg_replace($pattern, '', $text);
+		$pattern = '/nowrap=\\\".*?\\\"/';
+		$text = preg_replace($pattern, '', $text);
+		$pattern = '/width=\\\".*?\\\"/';
+		$text = preg_replace($pattern, '', $text);
+		$pattern = '/<o:p><\/o:p>/';
+		$text = preg_replace($pattern, '', $text);
+
+		$pattern = '/ *?(?=>)/';
+		$text = preg_replace($pattern, '', $text);
+		$pattern = '<span></span>';
+		$text = str_ireplace($pattern, '', $text);
+		return $text;
+	}
 }
