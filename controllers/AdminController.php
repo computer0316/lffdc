@@ -18,6 +18,8 @@ use app\models\Category;
 use app\models\CategoryUser;
 use app\models\CategoryArticle;
 use app\models\Common;
+use app\models\News;
+use app\models\Data;
 
 
 class AdminController extends Controller
@@ -183,5 +185,71 @@ class AdminController extends Controller
     public function actionSite(){
     	$this->layout = 'admin';
     	return $this->render('site');
+    }
+
+    public function actionPull(){
+    	$cate = [
+    		2 => 21,
+    		3 => 22,
+    		8 => 30,
+    		9 => 31,
+			10 => 32,
+			11 => 33,
+			12 => 34,
+			67 => 35,
+			13 => 37,
+			14 => 41,
+			21 => 28,
+			22 => 51,
+			23 => 58,
+			25 => 23,
+			26 => 24,
+			33 => 47,
+			35 => 48,
+			36 => 49,
+			37 => 59,
+			39 => 50,
+			41 => 26,
+			44 => 60,
+			45 => 60,
+			46 => 60,
+			47 => 60,
+			48 => 60,
+			49 => 60,
+			53 => 53,
+			56 => 25,
+			63 => 54,
+			64 => 55,
+			65 => 56,
+			66 => 57,
+    	];
+		$news = News::find()->where('ismember = 0')->all();
+		ob_start();
+		foreach($news as $n){
+			$data = Data::findOne($n->id);
+			$a = new Article();
+			$ca = new CategoryArticle();
+			$a->title = $n->title;
+			$a->text = $data->newstext;
+			$a->updatetime = date("Y-m-d H:i:s", $n->truetime);
+			$a->times = $n->onclick;
+			$a->ontop = $n->istop;
+			$a->creater = 1;
+			if($a->save()){
+				$n->ismember = 1;
+				$n->save();
+				$ca->categoryid = $cate[$n->classid];
+				$ca->articleid = $a->id;
+				$ca->save();
+				echo $a->title . '<br />';
+				ob_flush();
+				flush();
+			}
+			else{
+				echo '<meta charset="utf-8">';
+				var_dump($a->errors);
+				die();
+			}
+		}
     }
 }
