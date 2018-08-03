@@ -1,6 +1,9 @@
 @charset "UTF-8";
 /* font  中文*/
 /* color */
+body {
+  /* background:#f3f6f9; */ }
+
 html, body, div, p, ul, ol, li, table, tr, td, label, input, select {
   margin: 0;
   padding: 0;
@@ -10,7 +13,8 @@ ul {
   list-style-type: none; }
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+  color: #333; }
 
 table {
   width: auto;
@@ -25,17 +29,18 @@ table {
 .breadcrumb {
   float: left;
   width: 100%;
-  padding-left: 10px;
   line-height: 30px;
   border-bottom: 1px solid #ddd; }
 
 .breadcrumb li {
   float: left;
-  color: #dc143c; }
+  margin-left: 10px;
+  font-size: 14px;
+  color: black; }
   .breadcrumb li a {
-    color: #dc143c; }
+    color: black; }
   .breadcrumb li:after {
-    margin: 0 10px;
+    margin: 0 0 0 10px;
     content: ">"; }
   .breadcrumb li:last-child:after {
     content: ""; }

@@ -12,6 +12,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 
 use app\models\Article;
+use app\models\Category;
 use app\models\CategoryArticle;
 
 class SiteController extends Controller
@@ -76,7 +77,9 @@ class SiteController extends Controller
     		$condition = "categoryid>0";
     	}
     	else{
-    		$condition = "categoryid = " . $category;
+    		$cateArray = Category::getChildren($category);
+    		$cateStr = implode($cateArray, ',');
+    		$condition = "categoryid in (" . $cateStr . ')';
     	}
 		$query = CategoryArticle::find()->orderBy('articleid desc')->where($condition);
         $count	= $query->count();

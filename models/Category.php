@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category".
@@ -46,12 +47,17 @@ class Category extends \yii\db\ActiveRecord
 		return self::find()->where('id>=0')->all();
 	}
 
-	public static function getAllSons($id){
-
-	}
-
-	private static function getSon($id){
-		self::find()->where('fatherid = ' . $id)->all();
+	public static function getChildren($id){
+		$cates = self::find()->where('fatherid = ' . $id)->all();
+		$ids[] = $id;
+		if($cates){
+			foreach($cates as $c){
+				$ids[] = $c->id;
+				$ids = array_merge($ids , self::getChildren($c->id));
+			}
+			return $ids;
+		}
+		return [];
 	}
     /**
      * {@inheritdoc}
