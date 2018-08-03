@@ -12,4 +12,5 @@ $this->params['breadcrumbs'][] = $this->title;
 
 echo 'count1:' . $count1 . '<br />';
 echo 'count2:' . $count2 . '<br />';
+
 echo $text;

@@ -12,6 +12,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 
 use app\models\Article;
+use app\models\CategoryArticle;
 
 class SiteController extends Controller
 {
@@ -75,9 +76,9 @@ class SiteController extends Controller
     		$condition = "categoryid>0";
     	}
     	else{
-    		$condition = " category_article.categoryid = " . $category;
+    		$condition = "categoryid = " . $category;
     	}
-		$query = Article::find()->orderBy('id desc')->select("*")->innerJoin('category_article', 'category_article.articleid = article.id')->where($condition);
+		$query = CategoryArticle::find()->orderBy('articleid desc')->where($condition);
         $count	= $query->count();
         $pagination = new Pagination(['totalCount' => $count]);
         $pagination->pageSize = 18;

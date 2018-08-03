@@ -46,6 +46,13 @@ class Category extends \yii\db\ActiveRecord
 		return self::find()->where('id>=0')->all();
 	}
 
+	public static function getAllSons($id){
+
+	}
+
+	private static function getSon($id){
+		self::find()->where('fatherid = ' . $id)->all();
+	}
     /**
      * {@inheritdoc}
      */

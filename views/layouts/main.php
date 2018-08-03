@@ -4,8 +4,12 @@
 /* @var $content string */
 
 use app\widgets\Alert;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
+
+use app\models\Category;
 
 ?>
 <?php $this->beginPage() ?>
@@ -29,12 +33,15 @@ use yii\widgets\Breadcrumbs;
 </div>
 <div class="nav">
 <ul>
-	<li>首页</li>
-	<a href="#"><li>政策法规</li></a>
-	<a href="#"><li>房产新闻</li></a>
-	<a href="#"><li>群众办事</li></a>
-	<a href="#"><li>公示公告</li></a>
+	<a href="http://www.lffdc.gov.cn"><li>首页</li></a>
+	<?php
+		$cates = Category::find()->where('fatherid=0 and addmenu=1')->all();
+		foreach($cates as $c){
+			echo '<a href="' . Url::toRoute(['site/list', 'category' => $c->id]) . '"><li>' . $c->name . '</li></a>';
+		}
+	?>
 </ul>
+
 </div>
 <div class="container">
 	<?= Breadcrumbs::widget([

@@ -222,7 +222,7 @@ class AdminController extends Controller
     	];
 
 		$news = News::find()->where('ismember = 0')->all();
-		echo '<meta charset="utf-8">';
+
 		ob_start();
 		foreach($news as $n){
 			$data = Data::findOne($n->id);
@@ -235,6 +235,7 @@ class AdminController extends Controller
 			$a->ontop = $n->istop;
 			$a->creater = 1;
 			if($a->save()){
+				echo '<meta charset="utf-8">';
 				$n->ismember = 1;
 				$n->save();
 				$ca->categoryid = $cate[$n->classid];
@@ -255,15 +256,16 @@ class AdminController extends Controller
 
     public function actionTest(){
     	$this->layout = 'admin';
-    	//$n = News::findOne(3043);
-    	$d = Data::findOne(3043);
+    	$d = Data::findOne(2040);
     	$str = $d->newstext;
-    	//$str = '<p><span>房号<span></span></span></p>';
+    	//$str = '<p class="MsoNormal" align="center" style=\"text-align: center;\"><span style="font-size: 10pt; font-family: 宋体;">一单元<span lang="EN-US"></span></span></p>';
     	$count1 = strlen($str);
+    	$oldtext = $str;
     	$text = $this->strip_word_html($str);
     	$count2 = strlen($text);
     	//$text = $str;
     	return $this->render('test', [
+    		'oldtext' => $oldtext,
     		'text' => $text,
     		'count1' => $count1,
     		'count2' => $count2,
@@ -271,24 +273,23 @@ class AdminController extends Controller
     }
 
 	function strip_word_html($text){
-		$pattern = '/style=\\\".*?\\\"/';
+		$pattern = '\"';
+		$text = str_ireplace($pattern, '"', $text);
+
+		$pattern = '/(style|class|align|lang|width|nowrap)="[^"]*?"/';
 		$text = preg_replace($pattern, '', $text);
-		$pattern = '/class=\\\".*?\\\"/';
-		$text = preg_replace($pattern, '', $text);
-		$pattern = '/align=\\\".*?\\\"/';
-		$text = preg_replace($pattern, '', $text);
-		$pattern = '/lang=\\\".*?\\\"/';
-		$text = preg_replace($pattern, '', $text);
-		$pattern = '/nowrap=\\\".*?\\\"/';
-		$text = preg_replace($pattern, '', $text);
-		$pattern = '/width=\\\".*?\\\"/';
-		$text = preg_replace($pattern, '', $text);
+
 		$pattern = '/<o:p><\/o:p>/';
 		$text = preg_replace($pattern, '', $text);
 
 		$pattern = '/ *?(?=>)/';
 		$text = preg_replace($pattern, '', $text);
+
 		$pattern = '<span></span>';
+		$text = str_ireplace($pattern, '', $text);
+		$pattern = '<b></b>';
+		$text = str_ireplace($pattern, '', $text);
+		$pattern = '<>';
 		$text = str_ireplace($pattern, '', $text);
 		return $text;
 	}
