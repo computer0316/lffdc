@@ -54,10 +54,9 @@ class Category extends \yii\db\ActiveRecord
 			foreach($cates as $c){
 				$ids[] = $c->id;
 				$ids = array_merge($ids , self::getChildren($c->id));
-			}
-			return $ids;
+			}			
 		}
-		return [];
+		return $ids;
 	}
     /**
      * {@inheritdoc}

@@ -20,6 +20,7 @@ use app\models\CategoryArticle;
 use app\models\Common;
 use app\models\News;
 use app\models\Data;
+use app\models\Classs;
 
 
 class AdminController extends Controller
@@ -185,6 +186,7 @@ class AdminController extends Controller
     }
 
     public function actionPull(){
+    	die('用于从原来网站的数据库导入数据到新网站的数据库');
     	$cate = [
     		2 => 21,
     		3 => 22,
@@ -224,6 +226,7 @@ class AdminController extends Controller
 		$news = News::find()->where('ismember = 0')->all();
 
 		ob_start();
+		$i = 1;
 		foreach($news as $n){
 			$data = Data::findOne($n->id);
 			$a = new Article();
@@ -241,7 +244,7 @@ class AdminController extends Controller
 				$ca->categoryid = $cate[$n->classid];
 				$ca->articleid = $a->id;
 				$ca->save();
-				echo $a->title . '<br />';
+				echo $i++ . ' ' . Category::findOne($ca->categoryid)->name . ' - ' . Classs::findOne($n->classid)->classname . ' ' . $a->title . '<br />';
 				ob_flush();
 				flush();
 			}
@@ -253,23 +256,65 @@ class AdminController extends Controller
 			}
 		}
     }
+    
+    // 去掉新数据库文章中word的垃圾
+    public function actionRepareArticle(){
+    	$artis = Article::find()->where('ontop =0')->all();    	
+    	ob_start();
+    	echo '<meta charset="utf-8">';
+    	foreach($artis as $a){
+    		$old = strlen($a->text);
+    		$a->text = $this->strip_word_html($a->text);
+    		$new = strlen($a->text);
+    		$a->ontop = 1;
+    		$a->save();
+    		echo ($old-$new) . ' ' . $a->title . '<br />';
+    		ob_flush();
+    		flush();
+    	}
+    	exit;
+    }
+    
+    public function actionDeleteArticles(){
+    	die('清空新网站的所有文章，慎用！！！');
+    	CategoryArticle::deleteAll('articleid>-1');
+    	Article::deleteAll('id>-1');
+    	echo 'done';
+    }
 
     public function actionTest(){
-    	$this->layout = 'admin';
-    	$d = Data::findOne(2040);
-    	$str = $d->newstext;
-    	//$str = '<p class="MsoNormal" align="center" style=\"text-align: center;\"><span style="font-size: 10pt; font-family: 宋体;">一单元<span lang="EN-US"></span></span></p>';
-    	$count1 = strlen($str);
-    	$oldtext = $str;
-    	$text = $this->strip_word_html($str);
-    	$count2 = strlen($text);
-    	//$text = $str;
-    	return $this->render('test', [
-    		'oldtext' => $oldtext,
-    		'text' => $text,
-    		'count1' => $count1,
-    		'count2' => $count2,
-    	]);
+    	$arti = Article::find()->where('id>0')->all();
+    	//$pattern = '/(?<=\/)\w{32,32}\.(doc|docx|xls|xlsx)/';
+    	$pattern = '/<xml>[\S\s]*<\/xml>/';
+    	$red = 1;
+    	$blue = 1;
+    	try{
+	    	echo '<meta charset="utf-8">';
+			ob_start();
+	    	foreach($arti as $a){
+	    		$str = $a->text;
+	    		//$str = str_replace("\r\n", '', $str);
+	    		if(preg_match_all($pattern, $str, $matches) == 0){
+	    			echo  '<p style="color:blue;">' . $blue++ . ' ' . $a->id . ' ' . $a->title . '</p>';
+	    		}
+	    		else{
+	    			echo '<p style="color:red;">' . $red++ . ' ' . $a->id . ' ' . $a->title . '</p>';
+	    		}
+	    		if(!empty($matches[0])){
+	    			var_dump($matches[0]);
+	    		}
+	    		ob_flush();
+	    		flush();
+	    		if($red > 10 || $blue > 10){
+	    			exit;
+	    		}
+	    	}
+	    }
+	    catch(Exception $exp){
+	    	
+	    }
+    	
+    	exit;
     }
 
 	function strip_word_html($text){
@@ -278,7 +323,13 @@ class AdminController extends Controller
 
 		$pattern = '/(style|class|align|lang|width|nowrap)="[^"]*?"/';
 		$text = preg_replace($pattern, '', $text);
+		
+		$pattern = '/<xml>[\S\s]*<\/xml>/';
+		$text = preg_replace($pattern, '', $text);
 
+		$pattern = '/<style>[\S\s]*<\/style>/';
+		$text = preg_replace($pattern, '', $text);
+		
 		$pattern = '/<o:p><\/o:p>/';
 		$text = preg_replace($pattern, '', $text);
 

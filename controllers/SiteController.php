@@ -70,7 +70,11 @@ class SiteController extends Controller
         ]);
     }
 
-    // 文章列表
+    /*
+     * 文章列表
+     *
+     * $category 当前文章分类ID
+     */
     public function actionList($category = 0){
     	$condition = '';
     	if($category == 0){

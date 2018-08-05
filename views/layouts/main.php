@@ -50,8 +50,16 @@ use app\models\Category;
 	<?= $content ?>
 </div>
 <footer class="footer">
-        <p class="pull-left">&copy; <?= Yii::$app->params['siteName'] ?> <?= date('Y') ?></p>
-        <p class="pull-right">Roc</p>
+			<span>&copy; <?= Yii::$app->params['siteName'] ?> <?= date('Y') ?></span>
+			<span>政府网站标识码 1310000050</span>
+			<span>冀ICP备09050832号-1</span>
+			<span><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=13100302000636">冀公网安备 13100302000636号</a></span>
+			<div class="container">
+				<!--政府网站找错入口-->
+				<script id="_jiucuo_" sitecode='1310000050' src='http://pucha.kaipuyun.cn/exposure/jiucuo.js'></script>
+				<!--事业单位网站认证图标-->
+				<script type="text/javascript">document.write(unescape("%3Cspan id='_ideConac' %3E%3C/span%3E%3Cscript src='http://dcs.conac.cn/js/05/103/0000/41157126/CA051030000411571260001.js' type='text/javascript'%3E%3C/script%3E"));</script>
+			</div>
 </footer>
 <?= Alert::widget() ?>
 <?php $this->endBody() ?>
