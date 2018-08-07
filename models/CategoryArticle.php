@@ -3,20 +3,24 @@
 namespace app\models;
 
 use Yii;
-use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category_article".
  *
  * @property int $categoryid
  * @property int $articleid
+ * @property string $updatetime
  */
 class CategoryArticle extends \yii\db\ActiveRecord
 {
+	/*
+	 * 如果一篇文章属于多个分类，则返回所有分类的ID
+	 */
 	public static function getCategories($articleid){
 		$categories = self::find()->where('articleid = ' . $articleid)->all();
 		return ArrayHelper::getValue($categories, 'CategoryArticle.categoryid');
 	}
+
     /**
      * {@inheritdoc}
      */
@@ -31,8 +35,9 @@ class CategoryArticle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['categoryid', 'articleid'], 'required'],
+            [['categoryid', 'articleid', 'updatetime'], 'required'],
             [['categoryid', 'articleid'], 'integer'],
+            [['updatetime'], 'safe'],
             [['categoryid', 'articleid'], 'unique', 'targetAttribute' => ['categoryid', 'articleid']],
         ];
     }
@@ -45,6 +50,7 @@ class CategoryArticle extends \yii\db\ActiveRecord
         return [
             'categoryid' => 'Categoryid',
             'articleid' => 'Articleid',
+            'updatetime' => 'Updatetime',
         ];
     }
 }

@@ -85,7 +85,7 @@ class SiteController extends Controller
     		$cateStr = implode($cateArray, ',');
     		$condition = "categoryid in (" . $cateStr . ')';
     	}
-		$query = CategoryArticle::find()->orderBy('articleid desc')->where($condition);
+		$query = CategoryArticle::find()->orderBy('updatetime desc')->where($condition);
         $count	= $query->count();
         $pagination = new Pagination(['totalCount' => $count]);
         $pagination->pageSize = 18;
@@ -103,6 +103,8 @@ class SiteController extends Controller
 	public function actionShow($category=0, $id){
 		$article = Article::findOne($id);
 		if($article){
+			$article->times++;
+			$article->save();
 			return $this->render('show', [
 				'category'	=> $category,
 				'article'	=> $article,

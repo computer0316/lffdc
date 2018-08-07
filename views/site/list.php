@@ -3,6 +3,7 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Url;
+use yii\helpers\Datehelper;
 use yii\widgets\LinkPager;
 
 use app\models\Article;
@@ -105,7 +106,7 @@ function breadcrumb($id){
 		foreach($articles as $a){
 			echo '<li>';
 				echo '<a href="' . Url::toRoute(['site/show', 'category' => $category, 'id' => $a->articleid]) . '">' . Article::findOne($a->articleid)->title . '</a>';
-				echo '<span class="list-date">' . Article::findOne($a->articleid)->updatetime . '</span>';
+				echo '<span class="list-date">' . DateHelper::getDate(Article::findOne($a->articleid)->updatetime) . '</span>';
 			echo '</li>' . "\n";
 			if($i++ % 6 == 5){
 				echo '<li class="line">&nbsp;</li>';

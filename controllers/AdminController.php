@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
@@ -97,13 +98,14 @@ class AdminController extends Controller
 			$cr = new CategoryArticle();
 			$cr->categoryid = $category->id;
 			$cr->articleid = $article->id;
+			$cr->updatetime = $article->updatetime;
 			$cr->save();
 			if(empty($article->errors) && empty($cr->errors)){
 				Yii::$app->session->setFlash('message', '添加文章成功');
 				return $this->redirect(Url::toRoute('admin/add'));
 			}
 			else{
-				empty($article->errors) ? var_dump($article->errors): var_dump($cr->errors);
+				empty($article->errors) ?  var_dump($cr->errors) : var_dump($article->errors);
 				exit;
 			}
     	}
@@ -123,7 +125,7 @@ class AdminController extends Controller
     	else{
     		$condition = "categoryid = " . $category;
     	}
-		$query = CategoryArticle::find()->orderBy('articleid desc')->where($condition);
+		$query = CategoryArticle::find()->orderBy('updatetime desc')->where($condition);
         $count	= $query->count();
         $pagination = new Pagination(['totalCount' => $count]);
         $pagination->pageSize = 18;
@@ -134,7 +136,6 @@ class AdminController extends Controller
                     'articles'     => $articles,
                     'pagination'    => $pagination,
                     ]);
-    	return $this->render('list');
     }
 
     public function actionEnclosure(){
@@ -232,7 +233,7 @@ class AdminController extends Controller
 			$a = new Article();
 			$ca = new CategoryArticle();
 			$a->title = $n->title;
-			$a->text = $this->strip_word_html($data->newstext);
+			$a->text = StringHelper::strip_word_html($data->newstext);
 			$a->updatetime = date("Y-m-d H:i:s", $n->truetime);
 			$a->times = $n->onclick;
 			$a->ontop = $n->istop;
@@ -256,15 +257,15 @@ class AdminController extends Controller
 			}
 		}
     }
-    
+
     // 去掉新数据库文章中word的垃圾
     public function actionRepareArticle(){
-    	$artis = Article::find()->where('ontop =0')->all();    	
+    	$artis = Article::find()->where('ontop =0')->all();
     	ob_start();
     	echo '<meta charset="utf-8">';
     	foreach($artis as $a){
     		$old = strlen($a->text);
-    		$a->text = $this->strip_word_html($a->text);
+    		$a->text = StringHelper::strip_word_html($a->text);
     		$new = strlen($a->text);
     		$a->ontop = 1;
     		$a->save();
@@ -274,7 +275,7 @@ class AdminController extends Controller
     	}
     	exit;
     }
-    
+
     public function actionDeleteArticles(){
     	die('清空新网站的所有文章，慎用！！！');
     	CategoryArticle::deleteAll('articleid>-1');
@@ -283,65 +284,20 @@ class AdminController extends Controller
     }
 
     public function actionTest(){
-    	$arti = Article::find()->where('id>0')->all();
-    	//$pattern = '/(?<=\/)\w{32,32}\.(doc|docx|xls|xlsx)/';
-    	$pattern = '/<xml>[\S\s]*<\/xml>/';
-    	$red = 1;
-    	$blue = 1;
-    	try{
-	    	echo '<meta charset="utf-8">';
-			ob_start();
-	    	foreach($arti as $a){
-	    		$str = $a->text;
-	    		//$str = str_replace("\r\n", '', $str);
-	    		if(preg_match_all($pattern, $str, $matches) == 0){
-	    			echo  '<p style="color:blue;">' . $blue++ . ' ' . $a->id . ' ' . $a->title . '</p>';
-	    		}
-	    		else{
-	    			echo '<p style="color:red;">' . $red++ . ' ' . $a->id . ' ' . $a->title . '</p>';
-	    		}
-	    		if(!empty($matches[0])){
-	    			var_dump($matches[0]);
-	    		}
-	    		ob_flush();
-	    		flush();
-	    		if($red > 10 || $blue > 10){
-	    			exit;
-	    		}
-	    	}
-	    }
-	    catch(Exception $exp){
-	    	
-	    }
-    	
-    	exit;
+    	$cas = CategoryArticle::find()->where('articleid>0')->all();
+    	$i = 1;
+    	ob_start();
+    	foreach($cas as $ca){
+    		$article = Article::findOne($ca->articleid);
+    		$ca->updatetime = $article->updatetime;
+    		$ca->save();
+    		echo $i++ . ' ' . $article->title . '<br />';
+    		ob_flush();
+    		flush();
+    	}
+
+		exit;
     }
 
-	function strip_word_html($text){
-		$pattern = '\"';
-		$text = str_ireplace($pattern, '"', $text);
 
-		$pattern = '/(style|class|align|lang|width|nowrap)="[^"]*?"/';
-		$text = preg_replace($pattern, '', $text);
-		
-		$pattern = '/<xml>[\S\s]*<\/xml>/';
-		$text = preg_replace($pattern, '', $text);
-
-		$pattern = '/<style>[\S\s]*<\/style>/';
-		$text = preg_replace($pattern, '', $text);
-		
-		$pattern = '/<o:p><\/o:p>/';
-		$text = preg_replace($pattern, '', $text);
-
-		$pattern = '/ *?(?=>)/';
-		$text = preg_replace($pattern, '', $text);
-
-		$pattern = '<span></span>';
-		$text = str_ireplace($pattern, '', $text);
-		$pattern = '<b></b>';
-		$text = str_ireplace($pattern, '', $text);
-		$pattern = '<>';
-		$text = str_ireplace($pattern, '', $text);
-		return $text;
-	}
 }

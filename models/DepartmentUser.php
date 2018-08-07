@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Department;
 
 /**
  * This is the model class for table "department_user".
@@ -20,6 +21,10 @@ class DepartmentUser extends \yii\db\ActiveRecord
         return 'department_user';
     }
 
+	public static function getUserDepartment($user){
+		$du = self::find()->where('userid = ' . $user)->one();
+		return Department::findOne($du->departmentid)->name;
+	}
     /**
      * {@inheritdoc}
      */
